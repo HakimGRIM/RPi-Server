@@ -20,14 +20,12 @@ GPIO.setmode(GPIO.BCM)
 """
 app = Flask(__name__)
 
+var_pwm = [pwm1, pwm2, pwm3, pwm4]
 var_pwma = [10,17,18,25]
 var_av = [8,9,24,27]
 var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
-
-#vi = 100/5
-#pwm = GPIO.PWM(pin, vi)
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -51,21 +49,33 @@ def forward():
 	print "Forward"
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.HIGH)
-		pwm = GPIO.PWM(25, 50)
-		pwm.start(20)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
-	while 1:
-			pwm.ChangeDutyCycle(20)
+	#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
+	pwm1 = GPIO.PWM(10, 50)
+	pwm1.start(20)
+	pwm2 = GPIO.PWM(17, 50)
+	pwm2.start(20)
+	pwm3 = GPIO.PWM(18, 50)
+	pwm3.start(20)
+	pwm4 = GPIO.PWM(25, 50)
+	pwm4.start(20)
+	try:
+		while 1:
+			pwm1.ChangeDutyCycle(20)
+			pwm2.ChangeDutyCycle(20)
+			pwm3.ChangeDutyCycle(20)
+			pwm4.ChangeDutyCycle(20)
+	except KeyboardInterrupt:
+		pass
 
 def retreat_it():
 	print "Reverse"
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_ar:
-        #pwm.start()
 		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.LOW)
