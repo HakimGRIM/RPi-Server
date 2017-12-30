@@ -20,7 +20,6 @@ GPIO.setmode(GPIO.BCM)
 """
 app = Flask(__name__)
 
-var_pwm = [pwm1, pwm2, pwm3, pwm4]
 var_pwma = [10,17,18,25]
 var_av = [8,9,24,27]
 var_ar = [7,11,22,23]
@@ -54,20 +53,20 @@ def forward():
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
 	#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
-	pwm1 = GPIO.PWM(10, 50)
-	pwm1.start(20)
-	pwm2 = GPIO.PWM(17, 50)
-	pwm2.start(20)
-	pwm3 = GPIO.PWM(18, 50)
-	pwm3.start(20)
-	pwm4 = GPIO.PWM(25, 50)
-	pwm4.start(20)
+	pwm_1 = GPIO.PWM(10, 50)
+	pwm_1.start(20)
+	pwm_2 = GPIO.PWM(17, 50)
+	pwm_2.start(20)
+	pwm_3 = GPIO.PWM(18, 50)
+	pwm_3.start(20)
+	pwm_4 = GPIO.PWM(25, 50)
+	pwm_4.start(20)
 	try:
 		while 1:
-			pwm1.ChangeDutyCycle(20)
-			pwm2.ChangeDutyCycle(20)
-			pwm3.ChangeDutyCycle(20)
-			pwm4.ChangeDutyCycle(20)
+			pwm_1.ChangeDutyCycle(20)
+			pwm_2.ChangeDutyCycle(20)
+			pwm_3.ChangeDutyCycle(20)
+			pwm_4.ChangeDutyCycle(20)
 	except KeyboardInterrupt:
 		pass
 
