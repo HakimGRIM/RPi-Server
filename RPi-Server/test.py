@@ -16,9 +16,9 @@ GPIO.output(8, GPIO.HIGH)
 pwm = GPIO.PWM(25, 50)
  
 # demarrage du PWM avec un cycle a 0 (LED off)
-pwm.start(5)
+pwm.start(50)
 while 1:
-    pwm.ChangeDutyCycle(5)
+    pwm.ChangeDutyCycle(50)
 
 """
 # On fait varier le rapport cyclique de 0 a 100 puis de 100 a 0
