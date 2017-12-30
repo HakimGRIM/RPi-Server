@@ -51,15 +51,14 @@ def forward():
 	print "Forward"
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.HIGH)
-		pwm = GPIO.PWM(pin, 1)
-		pwm.start(10)
-		pwm.ChangeDutyCycle(100)
+		pwm = GPIO.PWM(25, 50)
+		pwm.start(20)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.HIGH)
-		#pwm = GPIO.PWM(pin, 20)
-		#pwm.start(5)
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
+	while 1:
+			pwm.ChangeDutyCycle(20)
 
 def retreat_it():
 	print "Reverse"
