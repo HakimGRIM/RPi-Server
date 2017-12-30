@@ -73,6 +73,8 @@ def go_left():
         	GPIO.output(pin, GPIO.HIGH)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.LOW)
+	for pin in var_d:
+		GPIO.output(pin, GPIO.HIGH)
 
 def go_right():
 	print "Trun right 1 et 3"
@@ -80,6 +82,8 @@ def go_right():
         	GPIO.output(pin, GPIO.HIGH)
 	for pin in var_d:
 		GPIO.output(pin, GPIO.LOW)
+	for pin in var_g:
+		GPIO.output(pin, GPIO.HIGH)
 
 @app.route("/")
 def main():
