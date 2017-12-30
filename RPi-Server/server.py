@@ -13,7 +13,7 @@ import time
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-""" Déclaration de : 
+""" Déclaration de :
   #--pin qui commande les 4 mouteurs du robot.--#
   #--L'application Flask.--#
   #--Module PWM qui gère le impulsion envoyé sur les GPIO.--#
@@ -50,17 +50,16 @@ def stop_it():
 def forward():
 	print "Forward"
 	for pin in var_pwma:
-		GPIO.output(pin, GPIO.HIGH)
-		pwm = GPIO.PWM(pin, 100)
-		pwm.start(5)
+		#GPIO.output(pin, GPIO.HIGH)
+		pwm = GPIO.PWM(pin, 1)
+		pwm.start(10)
+		pwm.ChangeDutyCycle(100)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.HIGH)
 		#pwm = GPIO.PWM(pin, 20)
 		#pwm.start(5)
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
-
-	pwm.ChangeDutyCycle()
 
 def retreat_it():
 	print "Reverse"
