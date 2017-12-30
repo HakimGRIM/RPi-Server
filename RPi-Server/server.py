@@ -23,8 +23,8 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
-vi = 100/5
-pwm = GPIO.PWM(pin, vi)
+#vi = 100/5
+#pwm = GPIO.PWM(pin, vi)
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -64,20 +64,20 @@ def retreat_it():
 	for pin in var_ar:
         #pwm.start()
 		GPIO.output(pin, GPIO.HIGH)
-    for pin in var_av:
+        for pin in var_av:
 		GPIO.output(pin, GPIO.LOW)
 
 def left():
 	print "Turn left 2 et 4"
 	for pin in var_pwma:
-        GPIO.output(pin, GPIO.HIGH)
+		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.LOW)
 
 def right():
 	print "Trun right 1 et 3"
 	for pin in var_pwma:
-        GPIO.output(pin, GPIO.HIGH)
+        	GPIO.output(pin, GPIO.HIGH)
 	for pin in var_d:
 		GPIO.output(pin, GPIO.LOW)
 
