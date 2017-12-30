@@ -64,17 +64,17 @@ def retreat_it():
 	for pin in var_ar:
         #pwm.start()
 		GPIO.output(pin, GPIO.HIGH)
-    for pin in var_av:
+	for pin in var_av:
 		GPIO.output(pin, GPIO.LOW)
 
-def left():
+def go_left():
 	print "Turn left 2 et 4"
 	for pin in var_pwma:
         GPIO.output(pin, GPIO.HIGH)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.LOW)
 
-def right():
+def go_right():
 	print "Trun right 1 et 3"
 	for pin in var_pwma:
         GPIO.output(pin, GPIO.HIGH)
@@ -88,6 +88,12 @@ def main():
    return render_template('home.html')
 
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
+@app.route("/stop")
+def stop():
+	print("stop")
+	stop_it()
+	return ('', 204)
+
 @app.route("/start")
 def start():
 	print("start")
@@ -103,11 +109,13 @@ def retreat():
 @app.route("/right")
 def right():
 	print("right")
+	go_right()
 	return ('', 204)
 
 @app.route("/left")
 def left():
 	print("left")
+	go_left()
 	return ('', 204)
 
 if __name__ == "__main__":
