@@ -51,6 +51,8 @@ def forward():
 	print "Forward"
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.HIGH)
+		pwm = GPIO.PWM(pin, 20)
+		pwm.start(20)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.HIGH)
 		pwm = GPIO.PWM(pin, 20)
