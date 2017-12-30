@@ -9,7 +9,7 @@ GPIO.setup(7, GPIO.OUT)
 GPIO.setup(8, GPIO.OUT)
 
 GPIO.output(7, GPIO.LOW)
-GPIO.output(7, GPIO.HIGH)
+GPIO.output(8, GPIO.HIGH)
  
 # creation d'un objet PWM. canal=4 frequence=50Hz
 pwm = GPIO.PWM(25, 50)
