@@ -23,8 +23,8 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
-vi = 100/5
-pwm = GPIO.PWM(pin, vi)
+#vi = 100/5
+#pwm = GPIO.PWM(pin, vi)
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
