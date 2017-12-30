@@ -10,6 +10,9 @@ import time
 #--Wheel three [pin 11 = GPIO 17 | pin 13 = GPIO 27 | pin 15 = GPIO 22]
 #--Wheel one [pin 12 = GPIO 18 | pin 16 = GPIO 23 | pin 18 = GPIO 24]
 
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+
 """ Déclaration de : 
   #--pin qui commande les 4 mouteurs du robot.--#
   #--L'application Flask.--#
@@ -28,9 +31,6 @@ var_d = [8,27]
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
-
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
 
 for pin in var_pwma:
 	GPIO.setup(pin, GPIO.OUT)
@@ -51,7 +51,7 @@ def forward():
 	print "Forward"
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.HIGH)
-		pwm = GPIO.PWM(pin, 20)
+		pwm = GPIO.PWM(pin, 50)
 		pwm.start(5)
 	for pin in var_av:
 		GPIO.output(pin, GPIO.HIGH)
