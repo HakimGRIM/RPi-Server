@@ -70,14 +70,14 @@ def retreat_it():
 def go_left():
 	print "Turn left 2 et 4"
 	for pin in var_pwma:
-        GPIO.output(pin, GPIO.HIGH)
+        	GPIO.output(pin, GPIO.HIGH)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.LOW)
 
 def go_right():
 	print "Trun right 1 et 3"
 	for pin in var_pwma:
-        GPIO.output(pin, GPIO.HIGH)
+        	GPIO.output(pin, GPIO.HIGH)
 	for pin in var_d:
 		GPIO.output(pin, GPIO.LOW)
 
