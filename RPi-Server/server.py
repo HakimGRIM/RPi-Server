@@ -65,7 +65,7 @@ def retreat_it():
         #pwm.start()
 		GPIO.output(pin, GPIO.HIGH)
     for pin in var_av:
-        GPIO.output(pin, GPIO.LOW)
+		GPIO.output(pin, GPIO.LOW)
 
 def left():
 	print "Turn left 2 et 4"
