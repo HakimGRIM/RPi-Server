@@ -53,7 +53,7 @@ def forward():
 		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_av:
 		pwm = GPIO.PWM(pin, 20)
-		pwm.start()
+		pwm.start(20)
 		#GPIO.output(pin, GPIO.HIGH)
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
