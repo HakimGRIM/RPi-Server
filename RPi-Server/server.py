@@ -60,7 +60,7 @@ def forward():
 def retreat_it():
 	print "Reverse"
 	for pin in var_pwma:
-        GPIO.output(pin, GPIO.HIGH)
+		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_ar:
         #pwm.start()
 		GPIO.output(pin, GPIO.HIGH)
