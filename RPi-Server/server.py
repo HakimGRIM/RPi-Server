@@ -4,6 +4,7 @@
 from flask import Flask, render_template, request
 import RPi.GPIO as GPIO
 import time
+import thread
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -113,7 +114,8 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	forward()
+	thread.start_new_thread(forward, ())
+	#forward()
 	return ('', 204)
 
 @app.route("/retreat")
