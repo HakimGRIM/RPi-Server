@@ -5,6 +5,7 @@ from flask import Flask, render_template, request
 import RPi.GPIO as GPIO
 import time
 import threading
+from forward_threading import Forward
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -13,6 +14,8 @@ import threading
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
+
+th_forward = Forward()
 
 """ Déclaration de :
   #--pin qui commande les 4 mouteurs du robot.--#
@@ -114,6 +117,7 @@ def stop():
 	#_satrt = False
 	#th_1._Thread_stop()
 	print("stop")
+	th_forward.stop()
 	stop_it()
 	return ('', 204)
 
@@ -122,7 +126,7 @@ def start():
 	print("start")
 	#th_1.start()
 	#thread.start_new_thread(forward, ())
-	forward()
+	th_forward.start()
 	return ('', 204)
 
 @app.route("/retreat")
