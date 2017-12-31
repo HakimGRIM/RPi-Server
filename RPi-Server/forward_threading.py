@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding:Utf-8 -*-
+
 from threading import Thread
 import time
 import RPi.GPIO as GPIO
