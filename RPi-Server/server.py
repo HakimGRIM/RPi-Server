@@ -100,7 +100,7 @@ def go_right():
 	for pin in var_g:
 		GPIO.output(pin, GPIO.HIGH)
 
-th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
+th_1 = threading.Thread(None, forward(), None, (200,), {'nom':'thread th_1'})
 
 @app.route("/")
 def main():
