@@ -28,7 +28,6 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
-global th_forward
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -124,6 +123,7 @@ def start():
 	print("start")
 	#th_1.start()
 	#thread.start_new_thread(forward, ())
+	global th_forward
 	th_forward = Forward()
 	th_forward.start()
 	return ('', 204)
