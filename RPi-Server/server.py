@@ -15,8 +15,6 @@ from forward_threading import Forward
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
-th_forward = Forward()
-
 """ Déclaration de :
   #--pin qui commande les 4 mouteurs du robot.--#
   #--L'application Flask.--#
@@ -30,7 +28,7 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
-_start = True
+th_forward = None
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -126,6 +124,7 @@ def start():
 	print("start")
 	#th_1.start()
 	#thread.start_new_thread(forward, ())
+	th_forward = Forward()
 	th_forward.start()
 	return ('', 204)
 
