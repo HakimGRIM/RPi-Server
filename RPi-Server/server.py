@@ -27,6 +27,8 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
+_start = True
+
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
 
@@ -63,7 +65,7 @@ def forward():
 	pwm_4 = GPIO.PWM(25, 50)
 	pwm_4.start(20)
 	try:
-		while 1:
+		while _start:
 			pwm_1.ChangeDutyCycle(20)
 			pwm_2.ChangeDutyCycle(20)
 			pwm_3.ChangeDutyCycle(20)
@@ -107,6 +109,7 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
+	_satrt = False
 	print("stop")
 	stop_it()
 	return ('', 204)
