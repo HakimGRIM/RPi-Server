@@ -109,8 +109,8 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	_satrt = False
-	forward()
+	#_satrt = False
+	thread.stop()
 	print("stop")
 	stop_it()
 	return ('', 204)
