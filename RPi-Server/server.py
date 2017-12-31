@@ -4,7 +4,7 @@
 from flask import Flask, render_template, request
 import RPi.GPIO as GPIO
 import time
-import thread
+import threading
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -28,6 +28,7 @@ var_g = [9,24]
 var_d = [8,27]
 
 _start = True
+th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -110,7 +111,7 @@ def main():
 @app.route("/stop")
 def stop():
 	#_satrt = False
-	thread.stop()
+	th_1._Thread_stop()
 	print("stop")
 	stop_it()
 	return ('', 204)
@@ -118,7 +119,8 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	thread.start_new_thread(forward, ())
+	th_1.start()
+	#thread.start_new_thread(forward, ())
 	#forward()
 	return ('', 204)
 
