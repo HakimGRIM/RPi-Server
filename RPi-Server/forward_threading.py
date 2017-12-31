@@ -17,14 +17,16 @@ class Forward(Thread):
         self.var_d = [8,27]
     
     def run(self):
-        print "Forward"
+        print ("Forward")
         for pin in self.var_pwma:
             GPIO.output(pin, GPIO.HIGH)
         for pin in self.var_av:
             GPIO.output(pin, GPIO.HIGH)
         for pin in self.var_ar:
             GPIO.output(pin, GPIO.LOW)
+
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
+        
         pwm_1 = GPIO.PWM(10, 50)
         pwm_1.start(20)
         pwm_2 = GPIO.PWM(17, 50)
