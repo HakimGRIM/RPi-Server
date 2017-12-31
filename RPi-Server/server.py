@@ -28,7 +28,7 @@ var_ar = [7,11,22,23]
 var_g = [9,24]
 var_d = [8,27]
 
-th_forward = None
+global th_forward
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
