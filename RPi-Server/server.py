@@ -28,7 +28,6 @@ var_g = [9,24]
 var_d = [8,27]
 
 _start = True
-th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
 
 #--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 #--Initialisation--#
@@ -100,6 +99,8 @@ def go_right():
 		GPIO.output(pin, GPIO.LOW)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.HIGH)
+
+th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
 
 @app.route("/")
 def main():
