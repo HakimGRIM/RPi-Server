@@ -110,6 +110,7 @@ def main():
 @app.route("/stop")
 def stop():
 	_satrt = False
+	forward()
 	print("stop")
 	stop_it()
 	return ('', 204)
