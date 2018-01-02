@@ -45,6 +45,6 @@ class Forward(Thread):
                 pwm_4.ChangeDutyCycle(20)
         except KeyboardInterrupt:
             pass 
-	subprocess.call("start python capteurAr.py")
+	#subprocess.call("start python capteurAr.py")
     def stop(self):
         self._start = False     
