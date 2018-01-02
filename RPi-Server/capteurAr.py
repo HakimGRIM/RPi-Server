@@ -36,8 +36,8 @@ class Arriere(Thread):
                 self.distance = round(self.distance, 2)
                 print "Distance: ", self.distance, " cm"
                 GPIO.cleanup()
-            except KeyboardInterrupt:
-                pass
+        except KeyboardInterrupt:
+            pass
 
     def result(self):
         return self.distance
