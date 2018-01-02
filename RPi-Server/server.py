@@ -25,7 +25,6 @@ class Server():
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BCM)
 		#--Déclaration--#
-		self.app = Flask(__name__)
 		self.var_pwma = [10,17,18,25]
 		self.var_av = [8,9,24,27]
 		self.var_ar = [7,11,22,23]
@@ -90,52 +89,55 @@ class Server():
 	#	stop_it()
 	#----#
 
-	@self.app.route("/")
-	def main():
-	
-		return render_template('home.html')
+#--Declaration du serveur Flask--#
 
-	#--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
-	@self.app.route("/stop")
-	def stop():
-		print("stop")
-		th_forward.stop()
+self.app = Flask(__name__)
+
+@app.route("/")
+def main():	
+	return render_template('home.html')
+
+#--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
+@app.route("/stop")
+def stop():
+	print("stop")
+	th_forward.stop()
+	stop_it()
+	return ('', 204)
+
+@app.route("/start")
+def start():
+	resultat = th_sonsor_ar.result()
+	if resultat <=20:
+		print ("Y a un obstacle")
 		stop_it()
+	else:
+		print("start")
+		global th_forward
+		th_forward = Forward()
+		th_forward.start()
 		return ('', 204)
 
-	@self.app.route("/start")
-	def start():
-		resultat = th_sonsor_ar.result()
-		if resultat <=20:
-			print ("Y a un obstacle")
-			stop_it()
-		else:
-			print("start")
-			global th_forward
-			th_forward = Forward()
-			th_forward.start()
-			return ('', 204)
+@app.route("/retreat")
+def retreat():
+	print("retreat")
+	#th_forward.stop()
+	retreat_it()
+	return ('', 204)
 
-	@self.app.route("/retreat")
-	def retreat():
-		print("retreat")
-		#th_forward.stop()
-		retreat_it()
-		return ('', 204)
+@app.route("/right")
+def right():
+	print("right")
+	#th_forward.stop()
+	go_right()
+	return ('', 204)
 
-	@self.app.route("/right")
-	def right():
-		print("right")
-		#th_forward.stop()
-		go_right()
-		return ('', 204)
+@app.route("/left")
+def left():
+	print("left")
+	#th_forward.stop()
+	go_left()
+	return ('', 204)
 
-	@self.app.route("/left")
-	def left():
-		print("left")
-		#th_forward.stop()
-		go_left()
-		return ('', 204)
-
-	if __name__ == "__main__":
-		self.app.run(host='192.168.0.12', port=5000)
+if __name__ == "__main__":
+	app.run(host='192.168.0.12', port=5000)
