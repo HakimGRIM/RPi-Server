@@ -32,5 +32,5 @@ class Arriere(Thread):
         print "Distance: ", self.distance, " cm"
         GPIO.cleanup()
 
-    def result():
+    def result(self):
         return self.distance
