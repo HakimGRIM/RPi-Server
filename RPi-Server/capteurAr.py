@@ -18,6 +18,7 @@ class Arriere(Thread):
     
     def run(self):
         while 1:
+            GPIO.setmode(GPIO.BCM)
             GPIO.output(self.TRIG, False)
             time.sleep(2)
             GPIO.output(self.TRIG, True)
