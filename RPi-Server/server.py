@@ -88,7 +88,7 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	th_stop.stop()
+	#th_stop.stop()
 	global th_forward
 	th_forward = Forward()
 	th_forward.start()
