@@ -48,6 +48,7 @@ th_sonsor_ar.start()
 #--Definition des fonction de commande--#
 
 def stop_it():
+	GPIO.setmode(GPIO.BCM)
 	for pin in var_pwma:
 		GPIO.output(pin, GPIO.LOW)
 
