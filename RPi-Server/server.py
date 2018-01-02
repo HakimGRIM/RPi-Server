@@ -70,9 +70,6 @@ def go_right():
 	for pin in var_g:
 		GPIO.output(pin, GPIO.HIGH)
 
-#th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
-#global puissance = 20
-
 @app.route("/")
 def main():
  
@@ -94,7 +91,7 @@ def start():
 	print("start")
 	#th_stop.stop()
 	global th_forward
-	th_forward = Forward(puissance)
+	th_forward = Forward()
 	th_forward.start()
 	return ('', 204)
 
