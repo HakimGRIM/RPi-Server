@@ -4,7 +4,6 @@
 import RPi.GPIO as GPIO
 import time
 from threading import Thread
-from stop_threading import Stop_it
 
 class Arriere(Thread):
 
