@@ -78,7 +78,8 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	global stp = True
+	global stp
+	stp = True
 	print("stop")
 	th_forward.stop()
 	global th_stop
