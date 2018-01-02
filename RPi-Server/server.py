@@ -55,7 +55,7 @@ def retreat_it():
 def go_left():
 	print "Turn left 2 et 4"
 	for pin in var_pwma:
-        	GPIO.output(pin, GPIO.HIGH)
+		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.LOW)
 	for pin in var_d:
@@ -64,7 +64,7 @@ def go_left():
 def go_right():
 	print "Trun right 1 et 3"
 	for pin in var_pwma:
-        	GPIO.output(pin, GPIO.HIGH)
+        GPIO.output(pin, GPIO.HIGH)
 	for pin in var_d:
 		GPIO.output(pin, GPIO.LOW)
 	for pin in var_g:
@@ -78,6 +78,7 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
+	global stp = True
 	print("stop")
 	th_forward.stop()
 	global th_stop
@@ -88,7 +89,9 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	#th_stop.stop()
+	if stp = True:
+		th_stop.stop()
+		stp = False
 	global th_forward
 	th_forward = Forward()
 	th_forward.start()
