@@ -29,7 +29,6 @@ class Arriere(Thread):
                 while GPIO.input(self.ECHO) == 0:
                     pulse_start = time.time()
                 while GPIO.input(self.ECHO) == 1:
-                    print ("ggggggggggggggggggggggg")
                     pulse_end = time.time()
                 pulse_duration = pulse_end - pulse_start
                 self.distance = pulse_duration * 17150
