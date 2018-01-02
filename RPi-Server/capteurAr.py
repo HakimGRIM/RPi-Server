@@ -9,12 +9,12 @@ class Arriere(Thread):
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
-        GPIO.output(TRIG, False)
         Tthrad.__init__(self)
         self.TRIG = 30
         self.ECHO = 31
     
     def run(self):
+        GPIO.output(TRIG, False)
         print ("Distance Measurement In Progress")
         GPIO.setup(TRIG, GPIO.OUT)
         GPIO.setup(ECHO, GPIO.IN)
