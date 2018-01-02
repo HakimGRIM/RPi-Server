@@ -89,9 +89,10 @@ class Server():
 	#	stop_it()
 	#----#
 
-#--Declaration du serveur Flask--#
+#--Declaration du serveur Flask & Instantiation de la classe Server()--#
 
-self.app = Flask(__name__)
+app = Flask(__name__)
+server = Server()
 
 @app.route("/")
 def main():	
@@ -102,7 +103,7 @@ def main():
 def stop():
 	print("stop")
 	th_forward.stop()
-	stop_it()
+	server.stop_it()
 	return ('', 204)
 
 @app.route("/start")
@@ -110,7 +111,7 @@ def start():
 	resultat = th_sonsor_ar.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
-		stop_it()
+		server.stop_it()
 	else:
 		print("start")
 		global th_forward
@@ -122,21 +123,21 @@ def start():
 def retreat():
 	print("retreat")
 	#th_forward.stop()
-	retreat_it()
+	server.retreat_it()
 	return ('', 204)
 
 @app.route("/right")
 def right():
 	print("right")
 	#th_forward.stop()
-	go_right()
+	server.go_right()
 	return ('', 204)
 
 @app.route("/left")
 def left():
 	print("left")
 	#th_forward.stop()
-	go_left()
+	server.go_left()
 	return ('', 204)
 
 if __name__ == "__main__":
