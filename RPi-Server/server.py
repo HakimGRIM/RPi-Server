@@ -43,6 +43,10 @@ for pin in var_ar:
 #------------------------------------------------------------------------------------------------------#
 #--Definition des fonction de commande--#
 
+def stop_it():
+	for pin in var_pwma:
+		GPIO.output(pin, GPIO.LOW)
+
 def retreat_it():
 	print "Reverse"
 	for pin in var_pwma:
@@ -70,8 +74,6 @@ def go_right():
 	for pin in var_g:
 		GPIO.output(pin, GPIO.HIGH)
 
-global stp
-stp = True
 @app.route("/")
 def main():
  
@@ -80,20 +82,14 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	stp = True
 	print("stop")
 	th_forward.stop()
-	global th_stop
-	th_stop = Stop_it()
-	th_stop.start()
+	stop_it()
 	return ('', 204)
 
 @app.route("/start")
 def start():
 	print("start")
-	if stp == True:
-		th_stop.stop()
-		stp = False
 	global th_forward
 	th_forward = Forward()
 	th_forward.start()
@@ -102,7 +98,6 @@ def start():
 @app.route("/retreat")
 def retreat():
 	print("retreat")
-	th_stop.stop()
 	th_forward.stop()
 	retreat_it()
 	return ('', 204)
@@ -110,7 +105,6 @@ def retreat():
 @app.route("/right")
 def right():
 	print("right")
-	th_stop.stop()
 	th_forward.stop()
 	go_right()
 	return ('', 204)
@@ -118,7 +112,6 @@ def right():
 @app.route("/left")
 def left():
 	print("left")
-	th_stop.stop()
 	th_forward.stop()
 	go_left()
 	return ('', 204)
