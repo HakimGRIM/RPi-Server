@@ -13,12 +13,12 @@ class Arriere(Thread):
         self.TRIG = 30
         self.ECHO = 31
         self.distance = 0
-        GPIO.setup(self.TRIG, GPIO.OUT)
-        GPIO.setup(self.ECHO, GPIO.IN)
     
     def run(self):
         while 1:
             GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.TRIG, GPIO.OUT)
+            GPIO.setup(self.ECHO, GPIO.IN)
             GPIO.output(self.TRIG, False)
             time.sleep(2)
             GPIO.output(self.TRIG, True)
