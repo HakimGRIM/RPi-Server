@@ -43,6 +43,7 @@ for pin in var_ar:
 #--Lancement des thread pour les capteur sonor--#
 th_sonsor_ar = Arriere()
 th_sonsor_ar.start()
+
 #------------------------------------------------------------------------------------------------------#
 #--Definition des fonction de commande--#
 
@@ -76,6 +77,12 @@ def go_right():
 		GPIO.output(pin, GPIO.LOW)
 	for pin in var_g:
 		GPIO.output(pin, GPIO.HIGH)
+
+#----#
+result = th_sonsor_ar.result()
+if result <= 20:
+	stop_it()
+#----#
 
 @app.route("/")
 def main():

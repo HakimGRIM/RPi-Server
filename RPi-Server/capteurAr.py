@@ -13,6 +13,7 @@ class Arriere(Thread):
         Thread.__init__(self)
         self.TRIG = 30
         self.ECHO = 31
+        self.distance = 0
         GPIO.setup(self.TRIG, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
     
@@ -27,10 +28,10 @@ class Arriere(Thread):
         while GPIO.input(self.ECHO) == 1:
             pulse_end = time.time()
         pulse_duration = pulse_end - pulse_start
-        distance = pulse_duration * 17150
-        distance = round(distance, 2)
-        print "Distance: ", distance, " cm"
-        th_stop = Stop_it()
-        if distance <= 20:
-            th_stop.start()
+        self.distance = pulse_duration * 17150
+        self.distance = round(distance, 2)
+        print "Distance: ", self.distance, " cm"
         GPIO.cleanup()
+
+    def result():
+        return self.distance
