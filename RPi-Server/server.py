@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from forward_threading import Forward
-from stop_threading import Stop_it
+from capteurAr import Arriere
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -39,7 +39,9 @@ for pin in var_av:
 	GPIO.setup(pin, GPIO.OUT)
 for pin in var_ar:
 	GPIO.setup(pin, GPIO.OUT)
-
+#------------------------------------------------------------------------------------------------------#
+#--Lancement des thread pour les capteur sonor--#
+th-sonor-ar = Arriere()
 #------------------------------------------------------------------------------------------------------#
 #--Definition des fonction de commande--#
 
