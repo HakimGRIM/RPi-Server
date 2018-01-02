@@ -53,6 +53,12 @@ class Server():
 			GPIO.output(pin, GPIO.LOW)
 
 	def retreat_it(self):
+		for pin in self.var_pwma:
+			GPIO.setup(pin, GPIO.OUT)
+		for pin in self.var_av:
+			GPIO.setup(pin, GPIO.OUT)
+		for pin in self.var_ar:
+			GPIO.setup(pin, GPIO.OUT)
 		print "Reverse"
 		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.HIGH)
