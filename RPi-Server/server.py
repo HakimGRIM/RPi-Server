@@ -90,7 +90,7 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	if stp = True:
+	if stp == True:
 		th_stop.stop()
 		stp = False
 	global th_forward
