@@ -116,21 +116,21 @@ def start():
 @app.route("/retreat")
 def retreat():
 	print("retreat")
-	th_forward.stop()
+	#th_forward.stop()
 	retreat_it()
 	return ('', 204)
 
 @app.route("/right")
 def right():
 	print("right")
-	th_forward.stop()
+	#th_forward.stop()
 	go_right()
 	return ('', 204)
 
 @app.route("/left")
 def left():
 	print("left")
-	th_forward.stop()
+	#th_forward.stop()
 	go_left()
 	return ('', 204)
 
