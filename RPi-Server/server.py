@@ -93,7 +93,7 @@ class Server():
 	@app.route("/")
 	def main():
 	
-	return render_template('home.html')
+		return render_template('home.html')
 
 	#--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 	@app.route("/stop")
