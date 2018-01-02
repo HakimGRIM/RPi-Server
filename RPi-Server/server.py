@@ -50,6 +50,8 @@ th_sonsor_ar.start()
 def stop_it():
 	GPIO.setmode(GPIO.BCM)
 	for pin in var_pwma:
+		GPIO.setup(pin, GPIO.OUT)
+	for pin in var_pwma:
 		GPIO.output(pin, GPIO.LOW)
 
 def retreat_it():
