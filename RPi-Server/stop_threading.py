@@ -4,6 +4,7 @@
 from threading import Thread
 import time
 import RPi.GPIO as GPIO
+import subprocess
 
 class Stop_it(Thread):
     def __init__(self):
