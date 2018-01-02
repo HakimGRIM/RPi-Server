@@ -3,7 +3,6 @@
 
 import RPi.GPIO as GPIO
 import time
-import subprocess
 from threading import Thread
 
 class Arriere(Thread):
@@ -18,11 +17,6 @@ class Arriere(Thread):
     
     def run(self):
         GPIO.output(TRIG, False)
-<<<<<<< HEAD
-=======
-        print ("Distance Measurement In Progress"
-        print ("Waiting For Sensor To Settle")
->>>>>>> c69bf84c104a829a1447b091274d446f5a59d12c
         time.sleep(2)
         GPIO.output(TRIG, True)
         time.sleep(0.00001)
