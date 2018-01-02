@@ -83,7 +83,6 @@ def stop():
 	global th_stop
 	th_stop = Stop_it()
 	th_stop.start()
-	stop_it()
 	return ('', 204)
 
 @app.route("/start")
