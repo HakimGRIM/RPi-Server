@@ -18,6 +18,12 @@ class Forward(Thread):
         self.var_ar = [7,11,22,23]
         self.var_g = [9,24]
         self.var_d = [8,27]
+        for pin in self.var_pwma:
+            GPIO.setup(pin, GPIO.OUT)
+        for pin in self.var_av:
+            GPIO.setup(pin, GPIO.OUT)
+        for pin in self.var_ar:
+            GPIO.setup(pin, GPIO.OUT)
     
     def run(self):
         for pin in self.var_pwma:
