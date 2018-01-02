@@ -121,7 +121,7 @@ def stop():
 def start():
 	print("start")
 	global th_forward
-	th_forward = Forward()
+	th_forward = Forward(puissance)
 	th_forward.start()
 	return ('', 204)
 

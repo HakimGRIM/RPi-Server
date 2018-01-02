@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 
 class Forward(Thread):
 
-    def __init__(self):
+    def __init__(self, puiss):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
@@ -31,19 +31,19 @@ class Forward(Thread):
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
         
         pwm_1 = GPIO.PWM(10, 50)
-        pwm_1.start(20)
+        pwm_1.start(puiss)
         pwm_2 = GPIO.PWM(17, 50)
-        pwm_2.start(20)
+        pwm_2.start(puiss)
         pwm_3 = GPIO.PWM(18, 50)
-        pwm_3.start(20)
+        pwm_3.start(puiss)
         pwm_4 = GPIO.PWM(25, 50)
-        pwm_4.start(20)
+        pwm_4.start(puiss)
         try:
             while self._start:
-                pwm_1.ChangeDutyCycle(20)
-                pwm_2.ChangeDutyCycle(20)
-                pwm_3.ChangeDutyCycle(20)
-                pwm_4.ChangeDutyCycle(20)
+                pwm_1.ChangeDutyCycle(puiss)
+                pwm_2.ChangeDutyCycle(puiss)
+                pwm_3.ChangeDutyCycle(puiss)
+                pwm_4.ChangeDutyCycle(puiss)
         except KeyboardInterrupt:
             pass 
 
