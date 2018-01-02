@@ -9,7 +9,7 @@ class Arriere(Thread):
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
-        Tthrad.__init__(self)
+        Thread.__init__(self)
         self.TRIG = 30
         self.ECHO = 31
     
