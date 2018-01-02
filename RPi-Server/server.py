@@ -85,11 +85,7 @@ class Server():
 		for pin in self.var_g:
 			GPIO.output(pin, GPIO.HIGH)
 
-	#----#
-	#resultat = th_sonsor_ar.result()
-	#if resultat <= 20:
-	#	stop_it()
-	#----#
+##--Fin de la définition de la classe Server()--##
 
 #--Declaration du serveur Flask & Instantiation de la classe Server()--#
 
