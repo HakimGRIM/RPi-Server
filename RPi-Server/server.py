@@ -90,20 +90,20 @@ class Server():
 	#	stop_it()
 	#----#
 
-	@app.route("/")
+	@self.app.route("/")
 	def main():
 	
 		return render_template('home.html')
 
 	#--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
-	@app.route("/stop")
+	@self.app.route("/stop")
 	def stop():
 		print("stop")
 		th_forward.stop()
 		stop_it()
 		return ('', 204)
 
-	@app.route("/start")
+	@self.app.route("/start")
 	def start():
 		resultat = th_sonsor_ar.result()
 		if resultat <=20:
@@ -116,21 +116,21 @@ class Server():
 			th_forward.start()
 			return ('', 204)
 
-	@app.route("/retreat")
+	@self.app.route("/retreat")
 	def retreat():
 		print("retreat")
 		#th_forward.stop()
 		retreat_it()
 		return ('', 204)
 
-	@app.route("/right")
+	@self.app.route("/right")
 	def right():
 		print("right")
 		#th_forward.stop()
 		go_right()
 		return ('', 204)
 
-	@app.route("/left")
+	@self.app.route("/left")
 	def left():
 		print("left")
 		#th_forward.stop()
@@ -138,4 +138,4 @@ class Server():
 		return ('', 204)
 
 	if __name__ == "__main__":
-		app.run(host='192.168.0.12', port=5000)
+		self.app.run(host='192.168.0.12', port=5000)
