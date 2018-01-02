@@ -11,6 +11,7 @@ class Stop_it(Thread):
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
         Thread.__init__(self)
+        self.running = False
         self.var_pwma = [10,17,18,25]
         self.var_av = [8,9,24,27]
         self.var_ar = [7,11,22,23]
@@ -18,5 +19,9 @@ class Stop_it(Thread):
         self.var_d = [8,27]
     
     def run(self):
-	    for pin in var_pwma:
+        self.running = True
+	    for pin in self.var_pwma:
 		    GPIO.output(pin, GPIO.LOW)
+    
+    def stop(self):
+        self.running = False
