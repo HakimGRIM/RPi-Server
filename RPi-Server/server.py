@@ -82,9 +82,9 @@ def go_right():
 		GPIO.output(pin, GPIO.HIGH)
 
 #----#
-resultat = th_sonsor_ar.result()
-if resultat <= 20:
-	stop_it()
+#resultat = th_sonsor_ar.result()
+#if resultat <= 20:
+#	stop_it()
 #----#
 
 @app.route("/")
@@ -102,6 +102,7 @@ def stop():
 
 @app.route("/start")
 def start():
+	resultat = th_sonsor_ar.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		stop_it()
