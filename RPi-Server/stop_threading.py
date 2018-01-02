@@ -7,8 +7,8 @@ import RPi.GPIO as GPIO
 
 class Stop_it(Thread):
     def __init__(self):
-        GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
         ''' Constructor. '''
         Thread.__init__(self)
         self.running = True
