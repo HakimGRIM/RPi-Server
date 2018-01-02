@@ -71,7 +71,7 @@ def go_right():
 		GPIO.output(pin, GPIO.HIGH)
 
 #th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
-global puissance = 20
+#global puissance = 20
 
 @app.route("/")
 def main():
