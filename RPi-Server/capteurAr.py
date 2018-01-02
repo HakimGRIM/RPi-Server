@@ -18,10 +18,6 @@ class Arriere(Thread):
     
     def run(self):
         GPIO.output(TRIG, False)
-        print ("Distance Measurement In Progress")
-        GPIO.setup(TRIG, GPIO.OUT)
-        GPIO.setup(ECHO, GPIO.IN)
-        print ("Waiting For Sensor To Settle")
         time.sleep(2)
         GPIO.output(TRIG, True)
         time.sleep(0.00001)
