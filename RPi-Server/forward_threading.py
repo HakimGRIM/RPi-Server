@@ -20,7 +20,6 @@ class Forward(Thread):
         self.var_d = [8,27]
     
     def run(self):
-        print ("Forward")
         for pin in self.var_pwma:
             GPIO.output(pin, GPIO.HIGH)
         for pin in self.var_av:

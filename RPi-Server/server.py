@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from forward_threading import Forward
+from stop_threading import Stop_it
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -42,37 +43,6 @@ for pin in var_ar:
 #------------------------------------------------------------------------------------------------------#
 #--Definition des fonction de commande--#
 
-def stop_it():
-	print "Stop Rebot"
-	for pin in var_pwma:
-		GPIO.output(pin, GPIO.LOW)
-
-def forward():
-	print "Forward"
-	for pin in var_pwma:
-		GPIO.output(pin, GPIO.HIGH)
-	for pin in var_av:
-		GPIO.output(pin, GPIO.HIGH)
-	for pin in var_ar:
-		GPIO.output(pin, GPIO.LOW)
-	#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
-	pwm_1 = GPIO.PWM(10, 50)
-	pwm_1.start(20)
-	pwm_2 = GPIO.PWM(17, 50)
-	pwm_2.start(20)
-	pwm_3 = GPIO.PWM(18, 50)
-	pwm_3.start(20)
-	pwm_4 = GPIO.PWM(25, 50)
-	pwm_4.start(20)
-	try:
-		while _start:
-			pwm_1.ChangeDutyCycle(20)
-			pwm_2.ChangeDutyCycle(20)
-			pwm_3.ChangeDutyCycle(20)
-			pwm_4.ChangeDutyCycle(20)
-	except KeyboardInterrupt:
-		pass
-
 def retreat_it():
 	print "Reverse"
 	for pin in var_pwma:
@@ -101,12 +71,11 @@ def go_right():
 		GPIO.output(pin, GPIO.HIGH)
 
 #th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
-puissance = 20
+global puissance = 20
 
 @app.route("/")
 def main():
  
-   # Pass the template data into the template main.html and return it to the user
    return render_template('home.html')
 
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
@@ -114,12 +83,16 @@ def main():
 def stop():
 	print("stop")
 	th_forward.stop()
+	global th_stop
+	th_stop = Stop_it()
+	th_stop.start()
 	stop_it()
 	return ('', 204)
 
 @app.route("/start")
 def start():
 	print("start")
+	th_stop.stop()
 	global th_forward
 	th_forward = Forward(puissance)
 	th_forward.start()
@@ -128,18 +101,24 @@ def start():
 @app.route("/retreat")
 def retreat():
 	print("retreat")
+	th_stop.stop()
+	th_forward.stop()
 	retreat_it()
 	return ('', 204)
 
 @app.route("/right")
 def right():
 	print("right")
+	th_stop.stop()
+	th_forward.stop()
 	go_right()
 	return ('', 204)
 
 @app.route("/left")
 def left():
 	print("left")
+	th_stop.stop()
+	th_forward.stop()
 	go_left()
 	return ('', 204)
 

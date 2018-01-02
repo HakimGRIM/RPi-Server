@@ -1,0 +1,30 @@
+def stop_it():
+	print "Stop Rebot"
+	for pin in var_pwma:
+		GPIO.output(pin, GPIO.LOW)
+
+def forward():
+	print "Forward"
+	for pin in var_pwma:
+		GPIO.output(pin, GPIO.HIGH)
+	for pin in var_av:
+		GPIO.output(pin, GPIO.HIGH)
+	for pin in var_ar:
+		GPIO.output(pin, GPIO.LOW)
+	#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
+	pwm_1 = GPIO.PWM(10, 50)
+	pwm_1.start(20)
+	pwm_2 = GPIO.PWM(17, 50)
+	pwm_2.start(20)
+	pwm_3 = GPIO.PWM(18, 50)
+	pwm_3.start(20)
+	pwm_4 = GPIO.PWM(25, 50)
+	pwm_4.start(20)
+	try:
+		while _start:
+			pwm_1.ChangeDutyCycle(20)
+			pwm_2.ChangeDutyCycle(20)
+			pwm_3.ChangeDutyCycle(20)
+			pwm_4.ChangeDutyCycle(20)
+	except KeyboardInterrupt:
+		pass
