@@ -28,7 +28,7 @@ class Arriere(Thread):
             pulse_end = time.time()
         pulse_duration = pulse_end - pulse_start
         self.distance = pulse_duration * 17150
-        self.distance = round(distance, 2)
+        self.distance = round(self.distance, 2)
         print "Distance: ", self.distance, " cm"
         GPIO.cleanup()
 
