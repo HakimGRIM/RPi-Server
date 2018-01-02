@@ -4,6 +4,7 @@
 import RPi.GPIO as GPIO
 import time
 from threading import Thread
+from stop_threading import Stop_it
 
 class Arriere(Thread):
 
@@ -29,4 +30,7 @@ class Arriere(Thread):
         distance = pulse_duration * 17150
         distance = round(distance, 2)
         print "Distance: ", distance, " cm"
+        th_stop = Stop_it()
+        if distane <= 20:
+            th_stop.start()
         GPIO.cleanup()
