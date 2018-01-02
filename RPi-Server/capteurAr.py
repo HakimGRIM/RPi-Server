@@ -18,12 +18,7 @@ class Arriere(Thread):
     
     def run(self):
         GPIO.output(TRIG, False)
-        print ("Distance Measurement In Progress")
-<<<<<<< HEAD
-=======
-        GPIO.setup(TRIG, GPIO.OUT)
-        GPIO.setup(ECHO, GPIO.IN)
->>>>>>> 9f537e8d7af3b15143d5b3cbe36ee251077b8866
+        print ("Distance Measurement In Progress"
         print ("Waiting For Sensor To Settle")
         time.sleep(2)
         GPIO.output(TRIG, True)
@@ -37,10 +32,4 @@ class Arriere(Thread):
         distance = pulse_duration * 17150
         distance = round(distance, 2)
         print "Distance: ", distance, " cm"
-<<<<<<< HEAD
-=======
-	#if distance < 10:
-     #   	subprocess.call("start python stop_threading.py") 
->>>>>>> 9f537e8d7af3b15143d5b3cbe36ee251077b8866
-
         GPIO.cleanup()
