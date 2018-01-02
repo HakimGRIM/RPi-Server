@@ -12,12 +12,13 @@ class Arriere(Thread):
         Thread.__init__(self)
         self.TRIG = 30
         self.ECHO = 31
+        GPIO.setup(self.TRIG, GPIO.OUT)
+        GPIO.setup(self.ECHO, GPIO.IN)
     
     def run(self):
         GPIO.output(self.TRIG, False)
         print ("Distance Measurement In Progress")
-        GPIO.setup(self.TRIG, GPIO.OUT)
-        GPIO.setup(self.ECHO, GPIO.IN)
+        
         print ("Waiting For Sensor To Settle")
         time.sleep(2)
         GPIO.output(self.TRIG, True)
