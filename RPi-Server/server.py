@@ -55,7 +55,7 @@ def forward():
 		GPIO.output(pin, GPIO.HIGH)
 	for pin in var_ar:
 		GPIO.output(pin, GPIO.LOW)
-	"""#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
+	#--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
 	pwm_1 = GPIO.PWM(10, 50)
 	pwm_1.start(20)
 	pwm_2 = GPIO.PWM(17, 50)
@@ -71,7 +71,7 @@ def forward():
 			pwm_3.ChangeDutyCycle(20)
 			pwm_4.ChangeDutyCycle(20)
 	except KeyboardInterrupt:
-		pass"""
+		pass
 
 def retreat_it():
 	print "Reverse"
@@ -101,6 +101,7 @@ def go_right():
 		GPIO.output(pin, GPIO.HIGH)
 
 #th_1 = threading.Thread(None, forward, None, (200,), {'nom':'thread th_1'})
+puissance = 20
 
 @app.route("/")
 def main():
@@ -111,8 +112,6 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	#_satrt = False
-	#th_1._Thread_stop()
 	print("stop")
 	th_forward.stop()
 	stop_it()
@@ -121,8 +120,6 @@ def stop():
 @app.route("/start")
 def start():
 	print("start")
-	#th_1.start()
-	#thread.start_new_thread(forward, ())
 	global th_forward
 	th_forward = Forward()
 	th_forward.start()
