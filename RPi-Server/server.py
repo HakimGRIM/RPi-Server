@@ -91,6 +91,7 @@ class Server():
 
 app = Flask(__name__)
 server = Server()
+server.run()
 
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
@@ -115,6 +116,7 @@ def start():
 	if resultat <=20:
 		print ("Y a un obstacle")
 		server.stop_it()
+		return ('', 204)
 	else:
 		print("start")
 		global th_forward
