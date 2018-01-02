@@ -6,7 +6,7 @@ import time
 import RPi.GPIO as GPIO
 
 class Stop_it(Thread):
-    def __init__(self, puiss):
+    def __init__(self):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
