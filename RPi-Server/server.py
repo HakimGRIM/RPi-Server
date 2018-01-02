@@ -41,46 +41,42 @@ class Server():
 			GPIO.setup(pin, GPIO.OUT)
 		for pin in self.var_ar:
 			GPIO.setup(pin, GPIO.OUT)
-		#------------------------------------------------------------------------------------------------------#
-		#--Lancement des thread pour les capteur sonor--#
-		th_sonsor_ar = Arriere()
-		th_sonsor_ar.start()
 
 	#------------------------------------------------------------------------------------------------------#
 	#--Definition des fonction de commande--#
 
-	def stop_it():
+	def stop_it(self):
 		GPIO.setmode(GPIO.BCM)
-		for pin in var_pwma:
+		for pin in self.var_pwma:
 			GPIO.setup(pin, GPIO.OUT)
-		for pin in var_pwma:
+		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.LOW)
 
-	def retreat_it():
+	def retreat_it(self):
 		print "Reverse"
-		for pin in var_pwma:
+		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.HIGH)
-		for pin in var_ar:
+		for pin in self.var_ar:
 			GPIO.output(pin, GPIO.HIGH)
-		for pin in var_av:
+		for pin in self.var_av:
 			GPIO.output(pin, GPIO.LOW)
 
-	def go_left():
+	def go_left(self):
 		print "Turn left 2 et 4"
-		for pin in var_pwma:
+		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.HIGH)
-		for pin in var_g:
+		for pin in self.var_g:
 			GPIO.output(pin, GPIO.LOW)
-		for pin in var_d:
+		for pin in self.var_d:
 			GPIO.output(pin, GPIO.HIGH)
 
-	def go_right():
+	def go_right(self):
 		print "Trun right 1 et 3"
-		for pin in var_pwma:
+		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.HIGH)
-		for pin in var_d:
+		for pin in self.var_d:
 			GPIO.output(pin, GPIO.LOW)
-		for pin in var_g:
+		for pin in self.var_g:
 			GPIO.output(pin, GPIO.HIGH)
 
 	#----#
@@ -93,6 +89,11 @@ class Server():
 
 app = Flask(__name__)
 server = Server()
+
+#------------------------------------------------------------------------------------------------------#
+#--Lancement des thread pour les capteur sonor--#
+th_sonsor_ar = Arriere()
+th_sonsor_ar.start()
 
 @app.route("/")
 def main():	
