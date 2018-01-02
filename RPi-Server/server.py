@@ -79,8 +79,8 @@ def go_right():
 		GPIO.output(pin, GPIO.HIGH)
 
 #----#
-result = th_sonsor_ar.result()
-if result <= 20:
+resultat = th_sonsor_ar.result()
+if resultat <= 20:
 	stop_it()
 #----#
 
