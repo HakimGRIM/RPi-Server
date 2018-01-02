@@ -31,6 +31,6 @@ class Arriere(Thread):
         distance = round(distance, 2)
         print "Distance: ", distance, " cm"
         th_stop = Stop_it()
-        if distane <= 20:
+        if distance <= 20:
             th_stop.start()
         GPIO.cleanup()
