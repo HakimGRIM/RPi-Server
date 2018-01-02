@@ -26,6 +26,7 @@ class Stop_it(Thread):
             GPIO.setup(pin, GPIO.OUT)
     
     def run(self):
+        GPIO.setmode(GPIO.BCM)
 	    for pin in self.var_pwma:
 		    GPIO.output(pin, GPIO.LOW)
     
