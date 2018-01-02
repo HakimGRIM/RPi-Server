@@ -99,11 +99,15 @@ def stop():
 
 @app.route("/start")
 def start():
-	print("start")
-	global th_forward
-	th_forward = Forward()
-	th_forward.start()
-	return ('', 204)
+	if resultat <=20:
+		print ("Y a un obstacle")
+		stop_it()
+	else:
+		print("start")
+		global th_forward
+		th_forward = Forward()
+		th_forward.start()
+		return ('', 204)
 
 @app.route("/retreat")
 def retreat():
