@@ -86,6 +86,8 @@ app = Flask(__name__)
 server = Server()
 server.run()
 
+global bol
+
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
 
@@ -101,8 +103,7 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	bol_forward = th_forward.result()
-	if bol_forward:
+	if bol:
 		print("stop")
 		th_forward.stop()
 		return ('', 204)
@@ -122,6 +123,7 @@ def start():
 	else:
 		print("start")
 		global th_forward
+		bol = True
 		th_forward = Forward()
 		th_forward.start()
 		return ('', 204)
