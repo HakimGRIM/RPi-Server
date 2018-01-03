@@ -101,10 +101,15 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	print("stop")
-	th_forward.stop()
-	server.stop_it()
-	return ('', 204)
+	bol_forward = th_forward.result()
+	if bol_forward:
+		print("stop")
+		th_forward.stop()
+		return ('', 204)
+	else:
+		print("stop")
+		server.stop_it()
+		return ('', 204)
 
 @app.route("/start")
 def start():
