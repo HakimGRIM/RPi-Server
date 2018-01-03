@@ -40,5 +40,5 @@ class Arriere(Thread):
     def result(self):
         return self.distance
 
-    def stop(slef):
+    def stop(self):
         self.running = False
