@@ -33,9 +33,10 @@ class Arriere(Thread):
                 self.distance = pulse_duration * 17150
                 self.distance = round(self.distance, 2)
                 print "Distance: ", self.distance, " cm"
-                GPIO.cleanup()
+                
         except KeyboardInterrupt:
             pass
+        GPIO.cleanup()
 
     def result(self):
         return self.distance
