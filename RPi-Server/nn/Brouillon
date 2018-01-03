@@ -28,3 +28,12 @@ def forward():
 			pwm_4.ChangeDutyCycle(20)
 	except KeyboardInterrupt:
 		pass
+
+def retreat_it(self):
+		print "Reverse"
+		for pin in self.var_pwma:
+			GPIO.output(pin, GPIO.HIGH)
+		for pin in self.var_ar:
+			GPIO.output(pin, GPIO.HIGH)
+		for pin in self.var_av:
+			GPIO.output(pin, GPIO.LOW)

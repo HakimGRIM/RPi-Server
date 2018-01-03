@@ -51,15 +51,6 @@ class Server():
 		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.LOW)
 
-	def retreat_it(self):
-		print "Reverse"
-		for pin in self.var_pwma:
-			GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_ar:
-			GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_av:
-			GPIO.output(pin, GPIO.LOW)
-
 	def go_left(self):
 		print "Turn left 2 et 4"
 		for pin in self.var_pwma:
@@ -86,7 +77,8 @@ app = Flask(__name__)
 server = Server()
 server.run()
 
-global bol
+global bol_1 = False
+global bol_2 = False
 
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
@@ -103,9 +95,11 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	if bol:
+	bol_forward = th_forward.result()
+	if bol_forward:
 		print("stop")
 		th_forward.stop()
+		server.stop_it()
 		return ('', 204)
 	else:
 		print("stop")
@@ -123,7 +117,7 @@ def start():
 	else:
 		print("start")
 		global th_forward
-		bol = True
+		bol_1 = True
 		th_forward = Forward()
 		th_forward.start()
 		return ('', 204)
@@ -138,15 +132,36 @@ def retreat():
 		return ('', 204)
 	else:
 		print("retreat")
-		#th_forward.stop()
-		server.retreat_it()
-		return ('', 204)
+		global th_retreat
+		bol_2 = True
+		if bol_1:
+			th_forward.stop()
+			th_retreat = Retreat()
+			th_retreat.start()
+			return ('', 204)
+		else:
+			th_retreat = Retreat()
+			th_retreat.start()
+			return ('', 204)
 
 @app.route("/right")
 def right():
 	bol_forward = th_forward.result()
-	if bol_forward:
+	bol_retreat = th_retreat.result()
+	if bol_forward and bol_retreat:
 		th_forward.stop()
+		print("right")
+		server.go_right()
+		return ('', 204)
+	elif bol_retreat:
+		th_retreat.stop()
+		print("right")
+		server.go_right()
+		return ('', 204)
+	elif bol_forward:
+		th_forward.stop()
+		print("right")
+		server.go_right()
 		return ('', 204)
 	else:
 		print("right")
@@ -156,8 +171,21 @@ def right():
 @app.route("/left")
 def left():
 	bol_forward = th_forward.result()
-	if bol_forward:
+	bol_retreat = th_retreat.result()
+	if bol_forward and bol_retreat:
 		th_forward.stop()
+		print("left")
+		server.go_left()
+		return ('', 204)
+	elif bol_retreat:
+		th_retreat.stop()
+		print("left")
+		server.go_left()
+		return ('', 204)
+	elif bol_forward:
+		th_forward.stop()
+		print("left")
+		server.go_left()
 		return ('', 204)
 	else:
 		print("left")
