@@ -122,6 +122,7 @@ def retreat():
 	resultat = th_sonsor_ar.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
+		print ("Distance", resultat, "cm")
 		server.stop_it()
 		return ('', 204)
 	else:

@@ -33,7 +33,7 @@ class Arriere(Thread):
                 pulse_duration = pulse_end - pulse_start
                 self.distance = pulse_duration * 17150
                 self.distance = round(self.distance, 2)
-                print "Distance: ", self.distance, " cm"
+                #print "Distance: ", self.distance, " cm"
             
         except KeyboardInterrupt:
             pass
