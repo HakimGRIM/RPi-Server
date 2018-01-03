@@ -86,8 +86,9 @@ server.run()
 
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
-#th_sonsor_ar = Arriere()
-#th_sonsor_ar.start()
+
+th_sonsor_ar = Arriere()
+th_sonsor_ar.start()
 
 @app.route("/")
 def main():	
@@ -103,17 +104,17 @@ def stop():
 
 @app.route("/start")
 def start():
-	"""#resultat = th_sonsor_ar.result()
+	resultat = th_sonsor_ar.result()
 	if 25 <=20:
-	#	print ("Y a un obstacle")
-	#	server.stop_it()
-	#	return ('', 204)
-	else:"""
-	print("start")
-	global th_forward
-	th_forward = Forward()
-	th_forward.start()
-	return ('', 204)
+		print ("Y a un obstacle")
+		server.stop_it()
+		return ('', 204)
+	else:
+		print("start")
+		global th_forward
+		th_forward = Forward()
+		th_forward.start()
+		return ('', 204)
 
 @app.route("/retreat")
 def retreat():

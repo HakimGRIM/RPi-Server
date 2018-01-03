@@ -16,16 +16,15 @@ class Arriere(Thread):
     
     def run(self):
         try:
-            while 1:
-                GPIO.setmode(GPIO.BCM)
-                GPIO.setup(self.TRIG, GPIO.OUT)
-                GPIO.setup(self.ECHO, GPIO.IN)
-                GPIO.output(self.TRIG, False)
-                time.sleep(2)
-                GPIO.output(self.TRIG, True)
-                time.sleep(0.00001)
-                GPIO.output(self.TRIG, False)
-                
+            GPIO.setmode(GPIO.BCM)
+            GPIO.setup(self.TRIG, GPIO.OUT)
+            GPIO.setup(self.ECHO, GPIO.IN)
+            GPIO.output(self.TRIG, False)
+            time.sleep(2)
+            GPIO.output(self.TRIG, True)
+            time.sleep(0.00001)
+            GPIO.output(self.TRIG, False)
+            while 1:                
                 while GPIO.input(self.ECHO) == 0:
                     pulse_start = time.time()
                 while GPIO.input(self.ECHO) == 1:
