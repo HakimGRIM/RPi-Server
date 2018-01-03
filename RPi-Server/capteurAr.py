@@ -10,6 +10,7 @@ class Arriere(Thread):
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         Thread.__init__(self)
+        self.runniing = True
         self.TRIG = 30
         self.ECHO = 31
         self.distance = 0
@@ -38,3 +39,6 @@ class Arriere(Thread):
 
     def result(self):
         return self.distance
+
+    def stop(slef):
+        self.running = False
