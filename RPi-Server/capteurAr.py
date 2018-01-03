@@ -17,12 +17,12 @@ class Arriere(Thread):
     
     def run(self):
         try:
-            GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.TRIG, GPIO.OUT)
-            GPIO.setup(self.ECHO, GPIO.IN)
-            GPIO.output(self.TRIG, False)
-            time.sleep(2)
             while 1:
+                GPIO.setmode(GPIO.BCM)
+                GPIO.setup(self.TRIG, GPIO.OUT)
+                GPIO.setup(self.ECHO, GPIO.IN)
+                GPIO.output(self.TRIG, False)
+                time.sleep(2)
                 GPIO.output(self.TRIG, True)
                 time.sleep(0.00001)
                 GPIO.output(self.TRIG, False)
