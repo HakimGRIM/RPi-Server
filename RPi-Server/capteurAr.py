@@ -10,7 +10,7 @@ class Arriere(Thread):
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         Thread.__init__(self)
-        self.runniing = True
+        self.running = True
         self.TRIG = 30
         self.ECHO = 31
         self.distance = 0
@@ -34,6 +34,9 @@ class Arriere(Thread):
             self.distance = round(self.distance, 2)
             print "Distance: ", self.distance, " cm"
             GPIO.cleanup()
+        except:
+            self.running = False
+            raise
         except KeyboardInterrupt:
             pass
 
