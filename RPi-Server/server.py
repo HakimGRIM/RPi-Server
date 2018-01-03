@@ -7,6 +7,7 @@ import time
 import threading
 from forward_threading import Forward
 from capteurAr import Arriere
+from capteurAv import Avant
 from retreat_threading import Retreat
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
