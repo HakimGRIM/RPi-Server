@@ -89,7 +89,9 @@ server.run()
 #--Lancement des thread pour les capteur sonor--#
 
 th_sonsor_ar = Arriere()
+th_sonsor_av = Avant()
 th_sonsor_ar.start()
+th_sonsor_av.start()
 
 @app.route("/")
 def main():	
@@ -105,7 +107,7 @@ def stop():
 
 @app.route("/start")
 def start():
-	resultat = th_sonsor_ar.result()
+	resultat = th_sonsor_av.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		print ("Distance", resultat, "cm")
