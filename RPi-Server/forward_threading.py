@@ -53,4 +53,7 @@ class Forward(Thread):
             pass 
 	#subprocess.call("start python capteurAr.py")
     def stop(self):
-        self._start = False     
+        self._start = False
+
+    def result(self):
+        return self._start

@@ -7,6 +7,7 @@ import time
 import threading
 from forward_threading import Forward
 from capteurAr import Arriere
+from retreat_threading import Retreat
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -104,8 +105,9 @@ def stop():
 
 @app.route("/start")
 def start():
+	th_sonsor_ar.start()
 	resultat = th_sonsor_ar.result()
-	if 25 <=20:
+	if resultat <=20:
 		print ("Y a un obstacle")
 		server.stop_it()
 		return ('', 204)
@@ -118,24 +120,39 @@ def start():
 
 @app.route("/retreat")
 def retreat():
-	print("retreat")
-	#th_forward.stop()
-	server.retreat_it()
-	return ('', 204)
+	th_sonsor_ar.start()
+	resultat = th_sonsor_ar.result()
+	if resultat <=20:
+		print ("Y a un obstacle")
+		server.stop_it()
+		return ('', 204)
+	else:
+		print("retreat")
+		#th_forward.stop()
+		server.retreat_it()
+		return ('', 204)
 
 @app.route("/right")
 def right():
-	print("right")
-	#th_forward.stop()
-	server.go_right()
-	return ('', 204)
+	bol_forward = th_forward.result()
+	if bol_forward:
+		th_forward.stop()
+		return ('', 204)
+	else:
+		print("right")
+		server.go_right()
+		return ('', 204)
 
 @app.route("/left")
 def left():
-	print("left")
-	#th_forward.stop()
-	server.go_left()
-	return ('', 204)
+	bol_forward = th_forward.result()
+	if bol_forward:
+		th_forward.stop()
+		return ('', 204)
+	else:
+		print("left")
+		server.go_left()
+		return ('', 204)
 
 if __name__ == "__main__":
 	app.run(host='192.168.0.12', port=5000)
