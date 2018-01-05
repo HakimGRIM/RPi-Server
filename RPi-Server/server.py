@@ -123,6 +123,7 @@ def start():
 		server.bol_1 = True
 		#server.th_forward = Forward()
 		server.th_forward.start()
+		server.th_forward.start()
 		return ('', 204)
 
 @app.route("/retreat")
