@@ -34,10 +34,10 @@ class Server():
 		self.var_d = [8,27]
 		self.bol_1 = False
 		self.bol_2 = False
-		self.th_forward
-		self.th_retreat
-		self.th_sonsor_ar
-		self.th_sonsor_av
+		self.th_forward = Forward()
+		self.th_retreat = Retreat()
+		self.th_sonsor_ar = Avant()
+		self.th_sonsor_av = Arriere()
 
 
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
@@ -86,8 +86,8 @@ server.run()
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
 
-server.th_sonsor_ar = Arriere()
-server.th_sonsor_av = Avant()
+#server.th_sonsor_ar = Arriere()
+#server.th_sonsor_av = Avant()
 server.th_sonsor_ar.start()
 server.th_sonsor_av.start()
 
@@ -121,7 +121,7 @@ def start():
 		print("start")
 		#global th_forward
 		server.bol_1 = True
-		server.th_forward = Forward()
+		#server.th_forward = Forward()
 		server.th_forward.start()
 		return ('', 204)
 
@@ -139,11 +139,11 @@ def retreat():
 		server.bol_2 = True
 		if server.bol_1:
 			server.th_forward.stop()
-			server.th_retreat = Retreat()
+			#server.th_retreat = Retreat()
 			server.th_retreat.start()
 			return ('', 204)
 		else:
-			server.th_retreat = Retreat()
+			#server.th_retreat = Retreat()
 			server.th_retreat.start()
 			return ('', 204)
 
