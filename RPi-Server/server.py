@@ -153,6 +153,7 @@ def right():
 	bol_retreat = server.th_retreat.result()
 	if bol_forward and bol_retreat:
 		server.th_forward.stop()
+		server.th_retreat.stop()
 		print("right")
 		server.go_right()
 		return ('', 204)
@@ -177,6 +178,7 @@ def left():
 	bol_retreat = server.th_retreat.result()
 	if bol_forward and bol_retreat:
 		server.th_forward.stop()
+		server.th_retreat.stop()
 		print("left")
 		server.go_left()
 		return ('', 204)
