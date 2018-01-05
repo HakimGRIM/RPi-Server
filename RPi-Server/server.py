@@ -111,7 +111,7 @@ def stop():
 
 @app.route("/start")
 def start():
-	resultat = server.th_sonsor_av.result()
+	resultat = server.th_sonsor_ar.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		print ("Distance", resultat, "cm")
@@ -128,7 +128,7 @@ def start():
 
 @app.route("/retreat")
 def retreat():
-	resultat = server.th_sonsor_ar.result()
+	resultat = server.th_sonsor_av.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		print ("Distance", resultat, "cm")
