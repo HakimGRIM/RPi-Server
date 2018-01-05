@@ -122,7 +122,7 @@ def start():
 		#global th_forward
 		server.bol_1 = True
 		#server.th_forward = Forward()
-		server.th_forward.start()
+		server.th_forward.stop()
 		server.th_forward.start()
 		return ('', 204)
 
