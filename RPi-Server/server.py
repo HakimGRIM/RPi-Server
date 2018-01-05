@@ -32,6 +32,12 @@ class Server():
 		self.var_ar = [7,11,22,23]
 		self.var_g = [9,24]
 		self.var_d = [8,27]
+		self.bol_1 = False
+		self.bol_2 = False
+		self.
+		self.
+		self.
+		self.
 
 
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
@@ -77,9 +83,6 @@ app = Flask(__name__)
 server = Server()
 server.run()
 
-global bol_1
-global bol_2
-
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
 
@@ -117,7 +120,7 @@ def start():
 	else:
 		print("start")
 		global th_forward
-		bol_1 = True
+		server.bol_1 = True
 		th_forward = Forward()
 		th_forward.start()
 		return ('', 204)
@@ -133,8 +136,8 @@ def retreat():
 	else:
 		print("retreat")
 		global th_retreat
-		bol_2 = True
-		if bol_1:
+		server.bol_2 = True
+		if server.bol_1:
 			th_forward.stop()
 			th_retreat = Retreat()
 			th_retreat.start()
