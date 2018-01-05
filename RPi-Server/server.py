@@ -77,8 +77,8 @@ app = Flask(__name__)
 server = Server()
 server.run()
 
-global bol_1 = False
-global bol_2 = False
+global bol_1
+global bol_2
 
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
