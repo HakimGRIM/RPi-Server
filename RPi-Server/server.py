@@ -34,10 +34,10 @@ class Server():
 		self.var_d = [8,27]
 		self.bol_1 = False
 		self.bol_2 = False
-		self.
-		self.
-		self.
-		self.
+		self.th_forward
+		self.th_retreat
+		self.th_sonsor_ar
+		self.th_sonsor_av
 
 
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
@@ -86,10 +86,10 @@ server.run()
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
 
-th_sonsor_ar = Arriere()
-th_sonsor_av = Avant()
-th_sonsor_ar.start()
-th_sonsor_av.start()
+server.th_sonsor_ar = Arriere()
+server.th_sonsor_av = Avant()
+server.th_sonsor_ar.start()
+server.th_sonsor_av.start()
 
 @app.route("/")
 def main():	
@@ -98,10 +98,10 @@ def main():
 #--Définition des routes pour l'association des action(commande ou fonction) a chaque boutton.--#
 @app.route("/stop")
 def stop():
-	bol_forward = th_forward.result()
+	bol_forward = server.th_forward.result()
 	if bol_forward:
 		print("stop")
-		th_forward.stop()
+		server.th_forward.stop()
 		server.stop_it()
 		return ('', 204)
 	else:
@@ -111,7 +111,7 @@ def stop():
 
 @app.route("/start")
 def start():
-	resultat = th_sonsor_av.result()
+	resultat = server.th_sonsor_av.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		print ("Distance", resultat, "cm")
@@ -119,15 +119,15 @@ def start():
 		return ('', 204)
 	else:
 		print("start")
-		global th_forward
+		#global th_forward
 		server.bol_1 = True
-		th_forward = Forward()
-		th_forward.start()
+		server.th_forward = Forward()
+		server.th_forward.start()
 		return ('', 204)
 
 @app.route("/retreat")
 def retreat():
-	resultat = th_sonsor_ar.result()
+	resultat = server.th_sonsor_ar.result()
 	if resultat <=20:
 		print ("Y a un obstacle")
 		print ("Distance", resultat, "cm")
@@ -135,34 +135,34 @@ def retreat():
 		return ('', 204)
 	else:
 		print("retreat")
-		global th_retreat
+		#global th_retreat
 		server.bol_2 = True
 		if server.bol_1:
-			th_forward.stop()
-			th_retreat = Retreat()
-			th_retreat.start()
+			server.th_forward.stop()
+			server.th_retreat = Retreat()
+			server.th_retreat.start()
 			return ('', 204)
 		else:
-			th_retreat = Retreat()
-			th_retreat.start()
+			server.th_retreat = Retreat()
+			server.th_retreat.start()
 			return ('', 204)
 
 @app.route("/right")
 def right():
-	bol_forward = th_forward.result()
-	bol_retreat = th_retreat.result()
+	bol_forward = server.th_forward.result()
+	bol_retreat = server.th_retreat.result()
 	if bol_forward and bol_retreat:
-		th_forward.stop()
+		server.th_forward.stop()
 		print("right")
 		server.go_right()
 		return ('', 204)
 	elif bol_retreat:
-		th_retreat.stop()
+		server.th_retreat.stop()
 		print("right")
 		server.go_right()
 		return ('', 204)
 	elif bol_forward:
-		th_forward.stop()
+		server.th_forward.stop()
 		print("right")
 		server.go_right()
 		return ('', 204)
@@ -173,20 +173,20 @@ def right():
 
 @app.route("/left")
 def left():
-	bol_forward = th_forward.result()
-	bol_retreat = th_retreat.result()
+	bol_forward = server.th_forward.result()
+	bol_retreat = server.th_retreat.result()
 	if bol_forward and bol_retreat:
-		th_forward.stop()
+		server.th_forward.stop()
 		print("left")
 		server.go_left()
 		return ('', 204)
 	elif bol_retreat:
-		th_retreat.stop()
+		server.th_retreat.stop()
 		print("left")
 		server.go_left()
 		return ('', 204)
 	elif bol_forward:
-		th_forward.stop()
+		server.th_forward.stop()
 		print("left")
 		server.go_left()
 		return ('', 204)
