@@ -99,9 +99,15 @@ def main():
 @app.route("/stop")
 def stop():
 	bol_forward = server.th_forward.result()
+	bil_retreat = server.th_retreat.result()
 	if bol_forward:
 		print("stop")
 		server.th_forward.stop()
+		server.stop_it()
+		return ('', 204)
+	elif bol_retreat:
+		print("stop")
+		server.th_retreat.stop()
 		server.stop_it()
 		return ('', 204)
 	else:
