@@ -23,6 +23,7 @@ class Arriere(Thread):
                 GPIO.setup(self.ECHO, GPIO.IN)
                 GPIO.output(self.TRIG, False)
                 time.sleep(2)
+                GPIO.setup(self.TRIG, GPIO.OUT)
                 GPIO.output(self.TRIG, True)
                 time.sleep(0.00001)
                 GPIO.output(self.TRIG, False)

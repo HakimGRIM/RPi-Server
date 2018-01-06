@@ -57,6 +57,8 @@ class Server():
 
 	def stop_it(self):
 		for pin in self.var_pwma:
+			GPIO.setup(pin, GPIO.OUT)
+		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.LOW)
 
 	def go_left(self):
