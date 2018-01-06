@@ -7,12 +7,13 @@ import RPi.GPIO as GPIO
 import subprocess
 class Retreat(Thread):
 
-    def __init__(self):
+    def __init__(self, puiss):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
         Thread.__init__(self)
         self._start = True
+        self._puiss = puiss
         self.var_pwma = [10,17,18,25]
         self.var_av = [8,9,24,27]
         self.var_ar = [7,11,22,23]
@@ -51,7 +52,6 @@ class Retreat(Thread):
                 pwm_4.ChangeDutyCycle(20)
         except KeyboardInterrupt:
             pass 
-	#subprocess.call("start python capteurAr.py")
     def stop(self):
         self._start = False
     

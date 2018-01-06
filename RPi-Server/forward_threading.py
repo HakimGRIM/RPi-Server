@@ -7,11 +7,12 @@ import RPi.GPIO as GPIO
 import subprocess
 class Forward(Thread):
 
-    def __init__(self):
+    def __init__(self, puiss):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
         Thread.__init__(self)
+        self._puiss = puiss
         self._start = True
         self.var_pwma = [10,17,18,25]
         self.var_av = [8,9,24,27]
@@ -36,19 +37,19 @@ class Forward(Thread):
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
         
         pwm_1 = GPIO.PWM(10, 50)
-        pwm_1.start(20)
+        pwm_1.start(_puiss)
         pwm_2 = GPIO.PWM(17, 50)
-        pwm_2.start(20)
+        pwm_2.start(_puiss)
         pwm_3 = GPIO.PWM(18, 50)
-        pwm_3.start(20)
+        pwm_3.start(_puiss)
         pwm_4 = GPIO.PWM(25, 50)
-        pwm_4.start(20)
+        pwm_4.start(_puiss)
         try:
             while self._start:
-                pwm_1.ChangeDutyCycle(20)
-                pwm_2.ChangeDutyCycle(20)
-                pwm_3.ChangeDutyCycle(20)
-                pwm_4.ChangeDutyCycle(20)
+                pwm_1.ChangeDutyCycle(_puiss)
+                pwm_2.ChangeDutyCycle(_puiss)
+                pwm_3.ChangeDutyCycle(_puiss)
+                pwm_4.ChangeDutyCycle(_puiss)
         except KeyboardInterrupt:
             pass 
 	#subprocess.call("start python capteurAr.py")

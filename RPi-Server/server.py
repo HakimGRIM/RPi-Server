@@ -34,8 +34,9 @@ class Server():
 		self.var_d = [8,27]
 		self.bol_1 = False
 		self.bol_2 = False
-		self.th_forward = Forward()
-		self.th_retreat = Retreat()
+		self.puiss = 20
+		self.th_forward = Forward(puiss)
+		self.th_retreat = Retreat(puiss)
 		self.th_sonsor_ar = Avant()
 		self.th_sonsor_av = Arriere()
 
