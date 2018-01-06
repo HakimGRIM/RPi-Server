@@ -17,6 +17,8 @@ from retreat_threading import Retreat
 
 class Server():
 
+	puiss = 20
+
 	""" Déclaration de :
 	#--pin qui commande les 4 mouteurs du robot.--#
 	#--L'application Flask.--#
@@ -34,9 +36,8 @@ class Server():
 		self.var_d = [8,27]
 		self.bol_1 = False
 		self.bol_2 = False
-		self.puiss = 20
-		self.th_forward = Forward(puiss)
-		self.th_retreat = Retreat(puiss)
+		self.th_forward = Forward(Server.puiss)
+		self.th_retreat = Retreat(Server.puiss)
 		self.th_sonsor_ar = Avant()
 		self.th_sonsor_av = Arriere()
 
