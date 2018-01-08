@@ -36,10 +36,12 @@ class Server():
 		self.var_d = [8,27]
 		self.bol_1 = False
 		self.bol_2 = False
-		self.th_forward = Forward()
+		self.th_forward = Forward(Server.puiss)
 		self.th_retreat = Retreat(Server.puiss)
 		self.th_sonsor_ar = Avant()
 		self.th_sonsor_av = Arriere()
+		self.if_init_foraward = True
+		self.if_init_retreat = True
 
 
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
@@ -90,8 +92,8 @@ server.run()
 #------------------------------------------------------------------------------------------------------#
 #--Lancement des thread pour les capteur sonor--#
 
-#server.th_sonsor_ar = Arriere()
-#server.th_sonsor_av = Avant()
+server.th_sonsor_ar = Arriere()
+server.th_sonsor_av = Avant()
 server.th_sonsor_ar.start()
 server.th_sonsor_av.start()
 
@@ -121,42 +123,80 @@ def stop():
 
 @app.route("/start")
 def start():
-	resultat = server.th_sonsor_ar.result()
-	if resultat <=20:
-		print ("Y a un obstacle")
-		print ("Distance", resultat, "cm")
-		server.stop_it()
-		return ('', 204)
+	if server.if_init_foraward:
+		resultat = server.th_sonsor_ar.result()
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_retreat.result():
+			print("start")
+			server.th_retreat.stop()
+			server.if_init_retreat = False
+			server.th_forward.start()
+			return ('', 204)
+		else:
+			print("start")
+			server.th_forward.start()
+			return ('', 204)
 	else:
-		print("start")
-		#global th_forward
-		server.bol_1 = True
-		#server.th_forward = Forward()
-		#server.th_forward.stop()
-		server.th_forward.start(server.puiss)
-		return ('', 204)
+		server.th_forward = Forward(puiss)
+		resultat = server.th_sonsor_ar.result()
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_retreat.result():
+			print("start")
+			server.th_retreat.stop()
+			server.if_init_retreat = False
+			server.th_forward.start()
+			return ('', 204)
+		else:
+			print("start")
+			server.th_forward.start()
+			return ('', 204)
+
 
 @app.route("/retreat")
 def retreat():
-	resultat = server.th_sonsor_av.result()
-	if resultat <=20:
-		print ("Y a un obstacle")
-		print ("Distance", resultat, "cm")
-		server.stop_it()
-		return ('', 204)
-	else:
-		print("retreat")
-		#global th_retreat
-		server.bol_2 = True
-		if server.bol_1:
+	if server.if_init_retreat:
+		resultat = server.th_sonsor_av.result()
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_forward.result():
+			print("retreat")
 			server.th_forward.stop()
-			#server.th_retreat = Retreat()
+			server.if_init_foraward = False
 			server.th_retreat.start()
 			return ('', 204)
 		else:
-			#server.th_retreat = Retreat()
+			print("retreat")
 			server.th_retreat.start()
 			return ('', 204)
+	else :
+		server.th_retreat = Retreat(puiss)
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_forward.result():
+			print("retreat")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_retreat.start()
+			return ('', 204)
+		else:
+			print("retreat")
+			server.th_retreat.start()
+			return ('', 204)
+
 
 @app.route("/right")
 def right():
@@ -207,6 +247,40 @@ def left():
 		print("left")
 		server.go_left()
 		return ('', 204)
+
+@app.route("/accelerer")
+def accelerer():
+	if server.puiss < 100:
+		server.puiss = server.puiss + 20
+		if server.th_forward.result():
+			print("acceleration")
+			server.th_forward.stop()
+			server.th_forward = Forward(server.puiss)
+			server.th_forward.start()
+			return ('', 204)
+		elif server.th_retreat.result():
+			print("acceleration")
+			server.th_retreat.stop()
+			server.th_retreat = Retreat(server.puiss)
+			server.th_retreat.start()
+			return ('', 204)
+
+@app.route("/decelerer")
+def decelerer():
+	if server.puiss > 20:
+		server.puiss = server.puiss - 20
+		if server.th_forward.result():
+			print("deceleration")
+			server.th_forward.stop()
+			server.th_forward = Forward(server.puiss)
+			server.th_forward.start()
+			return ('', 204)
+		elif server.th_retreat.result():
+			print("deceleration")
+			server.th_retreat.stop()
+			server.th_retreat = Retreat(server.puiss)
+			server.th_retreat.start()
+			return ('', 204)
 
 if __name__ == "__main__":
 	app.run(host='192.168.0.12', port=5000)
