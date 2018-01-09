@@ -26,11 +26,11 @@ class Left(Thread):
 
     def run(self):
         print "Turn left 2 et 4"
-		for pin in self.var_pwma:
+        for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_g:
+        for pin in self.var_g:
 			GPIO.output(pin, GPIO.LOW)
-		for pin in self.var_d:
+        for pin in self.var_d:
 			GPIO.output(pin, GPIO.HIGH)
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
         
