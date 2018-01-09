@@ -109,11 +109,13 @@ def stop():
 	if bol_forward:
 		print("stop")
 		server.th_forward.stop()
+		server.if_init_foraward = False
 		server.stop_it()
 		return ('', 204)
 	elif bol_retreat:
 		print("stop")
 		server.th_retreat.stop()
+		server.if_init_retreat = False
 		server.stop_it()
 		return ('', 204)
 	else:
@@ -180,7 +182,7 @@ def retreat():
 			server.th_retreat.start()
 			return ('', 204)
 	else :
-		server.th_retreat = Retreat(puiss)
+		server.th_retreat = Retreat(server.puiss)
 		if resultat <=20:
 			print ("Y a un obstacle")
 			print ("Distance", resultat, "cm")
