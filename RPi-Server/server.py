@@ -6,9 +6,11 @@ import RPi.GPIO as GPIO
 import time
 import threading
 from forward_threading import Forward
+from retreat_threading import Retreat
+from right_threading import Right
+from left_threading import Left
 from capteurAr import Arriere
 from capteurAv import Avant
-from retreat_threading import Retreat
 
 #--Wheel one [pin 26 = GPIO 7 | pin 24 = GPIO 8| pin 22 = GPIO 25]
 #--Wheel two [pin 19 = GPIO 10 | pin 21 = GPIO 9 | pin 23 = GPIO 11]
@@ -36,12 +38,18 @@ class Server():
 		self.var_d = [8,27]
 		self.start_forward = False
 		self.start_retreat = False
+		self.start_right = False
+		self.start_left = False
 		self.th_forward = Forward(Server.puiss)
 		self.th_retreat = Retreat(Server.puiss)
+		self.th_right = Right(Server.puiss)
+		self.th_left = Left(Server.puiss)
 		self.th_sonsor_ar = Avant()
 		self.th_sonsor_av = Arriere()
 		self.if_init_foraward = True
 		self.if_init_retreat = True
+		self.if_init_right = True
+		self.if_init_left = True
 
 
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
@@ -62,24 +70,6 @@ class Server():
 			GPIO.setup(pin, GPIO.OUT)
 		for pin in self.var_pwma:
 			GPIO.output(pin, GPIO.LOW)
-
-	def go_left(self):
-		print "Turn left 2 et 4"
-		for pin in self.var_pwma:
-			GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_g:
-			GPIO.output(pin, GPIO.LOW)
-		for pin in self.var_d:
-			GPIO.output(pin, GPIO.HIGH)
-
-	def go_right(self):
-		print "Trun right 1 et 3"
-		for pin in self.var_pwma:
-			GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_d:
-			GPIO.output(pin, GPIO.LOW)
-		for pin in self.var_g:
-			GPIO.output(pin, GPIO.HIGH)
 
 ##--Fin de la définition de la classe Server()--##
 
@@ -139,6 +129,20 @@ def start():
 			server.th_forward.start()
 			server.start_forward = True
 			return ('', 204)
+		elif server.th_right:
+			print("start")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("start")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
 		else:
 			print("start")
 			server.th_forward.start()
@@ -156,6 +160,20 @@ def start():
 			print("start")
 			server.th_retreat.stop()
 			server.if_init_retreat = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_right:
+			print("start")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("start")
+			server.th_left.stop()
+			server.if_init_left = False
 			server.th_forward.start()
 			server.start_forward = True
 			return ('', 204)
@@ -182,6 +200,20 @@ def retreat():
 			server.th_retreat.start()
 			server.start_retreat = True
 			return ('', 204)
+		elif server.th_right:
+			print("retreat")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("retreat")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
 		else:
 			print("retreat")
 			server.th_retreat.start()
@@ -202,62 +234,141 @@ def retreat():
 			server.th_retreat.start()
 			server.start_retreat = True
 			return ('', 204)
+		elif server.th_right:
+			print("retreat")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("retreat")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
 		else:
 			print("retreat")
 			server.th_retreat.start()
 			server.start_retreat = True
 			return ('', 204)
 
-
 @app.route("/right")
 def right():
-	bol_forward = server.th_forward.result()
-	bol_retreat = server.th_retreat.result()
-	if bol_forward and bol_retreat:
-		server.th_forward.stop()
-		server.th_retreat.stop()
-		print("right")
-		server.go_right()
-		return ('', 204)
-	elif bol_retreat:
-		server.th_retreat.stop()
-		print("right")
-		server.go_right()
-		return ('', 204)
-	elif bol_forward:
-		server.th_forward.stop()
-		print("right")
-		server.go_right()
-		return ('', 204)
-	else:
-		print("right")
-		server.go_right()
-		return ('', 204)
+	if server.if_init_right:
+		if server.th_forward.result():
+			print("right")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		elif server.th_retreat:
+			print("right")
+			server.th_retrart.stop()
+			server.if_init_retreat = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		elif server.th_left:
+			print("right")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		else:
+			print("right")
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+	else :
+		server.th_right = Right(server.puiss)
+		if server.th_forward.result():
+			print("right")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		elif server.th_retreat:
+			print("right")
+			server.th_retreat.stop()
+			server.if_init_retreat = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		elif server.th_left:
+			print("start")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
+		else:
+			print("retreat")
+			server.th_right.start()
+			server.start_right = True
+			return ('', 204)
 
 @app.route("/left")
 def left():
-	bol_forward = server.th_forward.result()
-	bol_retreat = server.th_retreat.result()
-	if bol_forward and bol_retreat:
-		server.th_forward.stop()
-		server.th_retreat.stop()
-		print("left")
-		server.go_left()
-		return ('', 204)
-	elif bol_retreat:
-		server.th_retreat.stop()
-		print("left")
-		server.go_left()
-		return ('', 204)
-	elif bol_forward:
-		server.th_forward.stop()
-		print("left")
-		server.go_left()
-		return ('', 204)
-	else:
-		print("left")
-		server.go_left()
-		return ('', 204)
+	if server.if_init_left:
+		if server.th_forward.result():
+			print("left")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		elif server.th_retreat:
+			print("left")
+			server.th_retrart.stop()
+			server.if_init_retreat = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		elif server.th_right:
+			print("left")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		else:
+			print("left")
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+	else :
+		server.th_left = Left(server.puiss)
+		if server.th_forward.result():
+			print("left")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		elif server.th_retreat:
+			print("left")
+			server.th_retreat.stop()
+			server.if_init_retreat = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		elif server.th_right:
+			print("left")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
+		else:
+			print("left")
+			server.th_left.start()
+			server.start_left = True
+			return ('', 204)
 
 @app.route("/accelerer")
 def accelerer():
@@ -274,6 +385,9 @@ def accelerer():
 			server.th_retreat.stop()
 			server.th_retreat = Retreat(server.puiss)
 			server.th_retreat.start()
+			return ('', 204)
+		else:
+			print("Attention ! Verage Dangereux")
 			return ('', 204)
 	else :
 		print("Puissance Max")
@@ -294,6 +408,9 @@ def decelerer():
 			server.th_retreat.stop()
 			server.th_retreat = Retreat(server.puiss)
 			server.th_retreat.start()
+			return ('', 204)
+		else:
+			print("Attention ! Verage Dangereux")
 			return ('', 204)
 	else :
 		print("Puissance Min")

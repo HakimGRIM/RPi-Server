@@ -5,7 +5,7 @@ from threading import Thread
 import time
 import RPi.GPIO as GPIO
 
-class Forward(Thread):
+class Right(Thread):
 
     def __init__(self, puiss):
         GPIO.setwarnings(False)
@@ -15,23 +15,23 @@ class Forward(Thread):
         self._puiss = puiss
         self._start = True
         self.var_pwma = [10,17,18,25]
-        self.var_av = [8,9,24,27]
-        self.var_ar = [7,11,22,23]
+        self.var_g = [9,24]
+        self.var_d = [8,27]
         for pin in self.var_pwma:
             GPIO.setup(pin, GPIO.OUT)
         for pin in self.var_av:
             GPIO.setup(pin, GPIO.OUT)
         for pin in self.var_ar:
             GPIO.setup(pin, GPIO.OUT)
-    
-    def run(self):
-        for pin in self.var_pwma:
-            GPIO.output(pin, GPIO.HIGH)
-        for pin in self.var_av:
-            GPIO.output(pin, GPIO.HIGH)
-        for pin in self.var_ar:
-            GPIO.output(pin, GPIO.LOW)
 
+    def run(self):
+        print "Trun right 1 et 3"
+		for pin in self.var_pwma:
+			GPIO.output(pin, GPIO.HIGH)
+		for pin in self.var_d:
+			GPIO.output(pin, GPIO.LOW)
+		for pin in self.var_g:
+			GPIO.output(pin, GPIO.HIGH)
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
         
         pwm_1 = GPIO.PWM(10, 50)
@@ -49,8 +49,8 @@ class Forward(Thread):
                 pwm_3.ChangeDutyCycle(self._puiss)
                 pwm_4.ChangeDutyCycle(self._puiss)
         except KeyboardInterrupt:
-            pass 
-	
+            pass
+
     def stop(self):
         self._start = False
 
