@@ -34,8 +34,8 @@ class Server():
 		self.var_ar = [7,11,22,23]
 		self.var_g = [9,24]
 		self.var_d = [8,27]
-		self.bol_1 = False
-		self.bol_2 = False
+		self.start_forward = False
+		self.start_retreat = False
 		self.th_forward = Forward(Server.puiss)
 		self.th_retreat = Retreat(Server.puiss)
 		self.th_sonsor_ar = Avant()
@@ -137,10 +137,12 @@ def start():
 			server.th_retreat.stop()
 			server.if_init_retreat = False
 			server.th_forward.start()
+			server.start_forward = True
 			return ('', 204)
 		else:
 			print("start")
 			server.th_forward.start()
+			server.start_forward = True
 			return ('', 204)
 	else:
 		server.th_forward = Forward(server.puiss)
@@ -155,10 +157,12 @@ def start():
 			server.th_retreat.stop()
 			server.if_init_retreat = False
 			server.th_forward.start()
+			server.start_forward = True
 			return ('', 204)
 		else:
 			print("start")
 			server.th_forward.start()
+			server.start_forward = True
 			return ('', 204)
 
 
@@ -176,10 +180,12 @@ def retreat():
 			server.th_forward.stop()
 			server.if_init_foraward = False
 			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		else:
 			print("retreat")
 			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 	else :
 		resultat = server.th_sonsor_av.result()
@@ -194,10 +200,12 @@ def retreat():
 			server.th_forward.stop()
 			server.if_init_foraward = False
 			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		else:
 			print("retreat")
 			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 
 
@@ -255,13 +263,13 @@ def left():
 def accelerer():
 	if server.puiss < 100:
 		server.puiss = server.puiss + 20
-		if server.th_forward.result():
+		if server.start_forward:
 			print("acceleration")
 			server.th_forward.stop()
 			server.th_forward = Forward(server.puiss)
 			server.th_forward.start()
 			return ('', 204)
-		elif server.th_retreat.result():
+		elif server.start_retreat:
 			print("acceleration")
 			server.th_retreat.stop()
 			server.th_retreat = Retreat(server.puiss)
