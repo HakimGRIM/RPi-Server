@@ -1,16 +1,17 @@
 import RPi.GPIO as GPIO
 import time
 
-GPIO.setmode(GPIO.BCM)
-GPIO.output(TRIG, False)
-
 TRIG = 30
 ECHO = 31
+
+GPIO.setmode(GPIO.BCM)
 
 print ("Distance Measurement In Progress")
 
 GPIO.setup(TRIG, GPIO.OUT)
 GPIO.setup(ECHO, GPIO.IN)
+
+GPIO.output(TRIG, False)
 
 print ("Waiting For Sensor To Settle")
 time.sleep(2)
