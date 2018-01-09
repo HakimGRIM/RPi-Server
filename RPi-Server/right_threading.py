@@ -28,9 +28,9 @@ class Right(Thread):
         print "Trun right 1 et 3"
         for pin in self.var_pwma:
             GPIO.output(pin, GPIO.HIGH)
-		for pin in self.var_d:
+        for pin in self.var_d:
 			GPIO.output(pin, GPIO.LOW)
-		for pin in self.var_g:
+        for pin in self.var_g:
 			GPIO.output(pin, GPIO.HIGH)
         #--Création des PWM pour chaque mouteur, ainsi que la fixation du rapport cyclique de demarage à 20%--#
         
