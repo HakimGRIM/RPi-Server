@@ -266,7 +266,7 @@ def right():
 			return ('', 204)
 		elif server.th_retreat:
 			print("right")
-			server.th_retrart.stop()
+			server.th_retreat.stop()
 			server.if_init_retreat = False
 			server.th_right.start()
 			server.start_right = True
