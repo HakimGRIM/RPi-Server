@@ -275,6 +275,9 @@ def accelerer():
 			server.th_retreat = Retreat(server.puiss)
 			server.th_retreat.start()
 			return ('', 204)
+	else :
+		print("Puissance Max")
+		return ('', 204)
 
 @app.route("/decelerer")
 def decelerer():
@@ -292,6 +295,9 @@ def decelerer():
 			server.th_retreat = Retreat(server.puiss)
 			server.th_retreat.start()
 			return ('', 204)
+	else :
+		print("Puissance Min")
+		return ('', 204)
 
 if __name__ == "__main__":
 	app.run(host='192.168.0.12', port=5000)
