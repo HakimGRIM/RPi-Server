@@ -44,9 +44,9 @@ if choix == 1 :
     duree = input("Entrez la duree durant laquelle le Servo devra tenir sa position : ( en secondes )\n")
 
     pwm=GPIO.PWM(14,10)
-    pwm.start(-20)
+    pwm.start(20)
 
-    #angleChoisi = float(angle)/10 + ajoutAngle
-    pwm.ChangeDutyCycle(-20)
+    angleChoisi = float(angle)/10 + ajoutAngle
+    pwm.ChangeDutyCycle(- angleChoisi)
     time.sleep(duree)
     GPIO.cleanup()
