@@ -143,7 +143,7 @@ def start():
 			server.th_forward.start()
 			return ('', 204)
 	else:
-		server.th_forward = Forward(puiss)
+		server.th_forward = Forward(server.puiss)
 		resultat = server.th_sonsor_ar.result()
 		if resultat <=20:
 			print ("Y a un obstacle")
@@ -182,6 +182,7 @@ def retreat():
 			server.th_retreat.start()
 			return ('', 204)
 	else :
+		resultat = server.th_sonsor_av.result()
 		server.th_retreat = Retreat(server.puiss)
 		if resultat <=20:
 			print ("Y a un obstacle")
