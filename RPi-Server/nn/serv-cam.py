@@ -2,7 +2,7 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(14, GPIO.OUT)
+GPIO.setup(14, GPIO.IN)
 GPIO.setwarnings(False)
 
 ajoutAngle = 5
@@ -23,18 +23,18 @@ if choix == 2 :
     pwm=GPIO.PWM(14,10)
     pwm.start(20)
 
-    angle1 = 0
-    duty1 = float(angle1)/10 + ajoutAngle
+    #angle1 = 0
+    #duty1 = float(angle1)/10 + ajoutAngle
 
-    angle2=180
-    duty2= float(angle2)/10 + ajoutAngle
+    #angle2=180
+    #duty2= float(angle2)/10 + ajoutAngle
 
     i = 0
 
     while i <= nbrTour:
-         pwm.ChangeDutyCycle(duty1)
+         pwm.ChangeDutyCycle(20)
          time.sleep(0.8)
-         pwm.ChangeDutyCycle(duty2)
+         pwm.ChangeDutyCycle(20)
          time.sleep(0.8)
          i = i+1
     GPIO.cleanup()
