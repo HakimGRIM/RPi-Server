@@ -19,9 +19,9 @@ class Right(Thread):
         self.var_d = [8,27]
         for pin in self.var_pwma:
             GPIO.setup(pin, GPIO.OUT)
-        for pin in self.var_av:
+        for pin in self.var_d:
             GPIO.setup(pin, GPIO.OUT)
-        for pin in self.var_ar:
+        for pin in self.var_g:
             GPIO.setup(pin, GPIO.OUT)
 
     def run(self):
