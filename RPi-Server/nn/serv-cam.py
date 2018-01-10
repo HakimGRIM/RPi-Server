@@ -21,7 +21,7 @@ if choix == 2 :
     nbrTour = input ("Entrez le nombre d'aller-retour que fera le Servo :\n")
 
     pwm=GPIO.PWM(14,10)
-    pwm.start(-20)
+    pwm.start(20)
 
     #angle1 = 0
     #duty1 = float(angle1)/10 + ajoutAngle
@@ -47,6 +47,6 @@ if choix == 1 :
     pwm.start(20)
 
     angleChoisi = float(angle)/10 + ajoutAngle
-    pwm.ChangeDutyCycle(6)
+    pwm.ChangeDutyCycle(10)
     time.sleep(duree)
     GPIO.cleanup()
