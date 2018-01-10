@@ -47,6 +47,6 @@ if choix == 1 :
     pwm.start(20)
 
     angleChoisi = float(angle)/10 + ajoutAngle
-    pwm.ChangeDutyCycle(10)
+    pwm.ChangeDutyCycle(5)
     time.sleep(duree)
     GPIO.cleanup()
