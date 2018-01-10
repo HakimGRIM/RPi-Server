@@ -324,7 +324,7 @@ def left():
 			return ('', 204)
 		elif server.th_retreat:
 			print("left")
-			server.th_retrart.stop()
+			server.th_retreat.stop()
 			server.if_init_retreat = False
 			server.th_left.start()
 			server.start_left = True
