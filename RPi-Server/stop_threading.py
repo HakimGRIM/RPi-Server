@@ -4,14 +4,12 @@
 from threading import Thread
 import time
 import RPi.GPIO as GPIO
-import subprocess
 
-class Stop_it(Thread):
+class Stop_it():
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
         ''' Constructor. '''
-        Thread.__init__(self)
         self.running = True
         self.var_pwma = [10,17,18,25]
         self.var_av = [8,9,24,27]
@@ -27,7 +25,13 @@ class Stop_it(Thread):
     
     def run(self):
         GPIO.setmode(GPIO.BCM)
-        for pin in self.var_pwma:
+        for pin in self.var_av:
+            GPIO.output(pin, GPIO.LOW)
+        for pin in self.var_ar:
+            GPIO.output(pin, GPIO.LOW)
+        for pin in self.var_g:
+            GPIO.output(pin, GPIO.LOW)
+        for pin in self.var_d:
             GPIO.output(pin, GPIO.LOW)
     
     def stop(self):

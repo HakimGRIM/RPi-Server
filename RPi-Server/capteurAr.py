@@ -4,12 +4,14 @@
 import RPi.GPIO as GPIO
 import time
 from threading import Thread
+from stop_threading import Stop_it
 
 class Arriere(Thread):
 
     def __init__(self):
         GPIO.setmode(GPIO.BCM)
         Thread.__init__(self)
+        self.th_stop = Stop_it()
         self.running = True
         self.TRIG = 30
         self.ECHO = 31
@@ -34,6 +36,8 @@ class Arriere(Thread):
                 self.distance = pulse_duration * 17150
                 self.distance = round(self.distance, 2)
                 #print "Distance: ", self.distance, " cm"
+                if self.distance <= 25:
+                    self.th_stop.run()
             
         except KeyboardInterrupt:
             pass

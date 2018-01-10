@@ -188,72 +188,71 @@ def start():
 def retreat():
 	if server.if_init_retreat:
 		resultat = server.th_sonsor_av.result()
-		while resultat > 20:
-			if resultat <=20:
-				print ("Y a un obstacle")
-				print ("Distance", resultat, "cm")
-				server.stop_it()
-				return ('', 204)
-			elif server.th_forward.result():
-				print("retreat")
-				server.th_forward.stop()
-				server.if_init_foraward = False
-				server.th_retreat.start()
-				server.start_retreat = True
-				return ('', 204)
-			elif server.th_right:
-				print("retreat")
-				server.th_right.stop()
-				server.if_init_right = False
-				server.th_forward.start()
-				server.start_forward = True
-				return ('', 204)
-			elif server.th_left:
-				print("retreat")
-				server.th_left.stop()
-				server.if_init_left = False
-				server.th_forward.start()
-				server.start_forward = True
-				return ('', 204)
-			else:
-				print("retreat")
-				server.th_retreat.start()
-				server.start_retreat = True
-				return ('', 204)
-		else :
-			resultat = server.th_sonsor_av.result()
-			server.th_retreat = Retreat(server.puiss)
-			if resultat <=20:
-				print ("Y a un obstacle")
-				print ("Distance", resultat, "cm")
-				server.stop_it()
-				return ('', 204)
-			elif server.th_forward.result():
-				print("retreat")
-				server.th_forward.stop()
-				server.if_init_foraward = False
-				server.th_retreat.start()
-				server.start_retreat = True
-				return ('', 204)
-			elif server.th_right:
-				print("retreat")
-				server.th_right.stop()
-				server.if_init_right = False
-				server.th_forward.start()
-				server.start_forward = True
-				return ('', 204)
-			elif server.th_left:
-				print("retreat")
-				server.th_left.stop()
-				server.if_init_left = False
-				server.th_forward.start()
-				server.start_forward = True
-				return ('', 204)
-			else:
-				print("retreat")
-				server.th_retreat.start()
-				server.start_retreat = True
-				return ('', 204)
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_forward.result():
+			print("retreat")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_retreat.start()
+			server.start_retreat = True
+			return ('', 204)
+		elif server.th_right:
+			print("retreat")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("retreat")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		else:
+			print("retreat")
+			server.th_retreat.start()
+			server.start_retreat = True
+			return ('', 204)
+	else :
+		resultat = server.th_sonsor_av.result()
+		server.th_retreat = Retreat(server.puiss)
+		if resultat <=20:
+			print ("Y a un obstacle")
+			print ("Distance", resultat, "cm")
+			server.stop_it()
+			return ('', 204)
+		elif server.th_forward.result():
+			print("retreat")
+			server.th_forward.stop()
+			server.if_init_foraward = False
+			server.th_retreat.start()
+			server.start_retreat = True
+			return ('', 204)
+		elif server.th_right:
+			print("retreat")
+			server.th_right.stop()
+			server.if_init_right = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		elif server.th_left:
+			print("retreat")
+			server.th_left.stop()
+			server.if_init_left = False
+			server.th_forward.start()
+			server.start_forward = True
+			return ('', 204)
+		else:
+			print("retreat")
+			server.th_retreat.start()
+			server.start_retreat = True
+			return ('', 204)
 
 @app.route("/right")
 def right():
