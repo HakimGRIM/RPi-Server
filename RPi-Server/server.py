@@ -66,9 +66,13 @@ class Server():
 	#--Definition des fonction de commande--#
 
 	def stop_it(self):
-		for pin in self.var_pwma:
-			GPIO.setup(pin, GPIO.OUT)
-		for pin in self.var_pwma:
+		for pin in self.var_av:
+			GPIO.output(pin, GPIO.LOW)
+		for pin in self.var_ar:
+			GPIO.output(pin, GPIO.LOW)
+		for pin in self.var_g:
+			GPIO.output(pin, GPIO.LOW)
+		for pin in self.var_d:
 			GPIO.output(pin, GPIO.LOW)
 
 ##--Fin de la définition de la classe Server()--##
