@@ -100,25 +100,25 @@ def main():
 def stop():
 	bol_forward = server.th_forward.result()
 	bol_retreat = server.th_retreat.result()
-	if start_forward:
+	if server.start_forward:
 		print("stop")
 		server.th_forward.stop()
 		server.if_init_foraward = False
 		server.stop_it()
 		return ('', 204)
-	elif start_retreat:
+	elif server.start_retreat:
 		print("stop")
 		server.th_retreat.stop()
 		server.if_init_retreat = False
 		server.stop_it()
 		return ('', 204)
-	elif start_right:
+	elif server.start_right:
 		print("stop")
 		server.th_right.stop()
 		server.if_init_right = False
 		server.stop_it()
 		return ('', 204)
-	elif start_left:
+	elif server.start_left:
 		print("stop")
 		server.th_left.stop()
 		server.if_init_left = False
