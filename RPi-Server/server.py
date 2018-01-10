@@ -100,16 +100,28 @@ def main():
 def stop():
 	bol_forward = server.th_forward.result()
 	bol_retreat = server.th_retreat.result()
-	if bol_forward:
+	if start_forward:
 		print("stop")
 		server.th_forward.stop()
 		server.if_init_foraward = False
 		server.stop_it()
 		return ('', 204)
-	elif bol_retreat:
+	elif start_retreat:
 		print("stop")
 		server.th_retreat.stop()
 		server.if_init_retreat = False
+		server.stop_it()
+		return ('', 204)
+	elif start_right:
+		print("stop")
+		server.th_right.stop()
+		server.if_init_right = False
+		server.stop_it()
+		return ('', 204)
+	elif start_left:
+		print("stop")
+		server.th_left.stop()
+		server.if_init_left = False
 		server.stop_it()
 		return ('', 204)
 	else:
@@ -208,15 +220,15 @@ def retreat():
 			print("retreat")
 			server.th_right.stop()
 			server.if_init_right = False
-			server.th_forward.start()
-			server.start_forward = True
+			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		elif server.th_left:
 			print("retreat")
 			server.th_left.stop()
 			server.if_init_left = False
-			server.th_forward.start()
-			server.start_forward = True
+			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		else:
 			print("retreat")
@@ -242,15 +254,15 @@ def retreat():
 			print("retreat")
 			server.th_right.stop()
 			server.if_init_right = False
-			server.th_forward.start()
-			server.start_forward = True
+			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		elif server.th_left:
 			print("retreat")
 			server.th_left.stop()
 			server.if_init_left = False
-			server.th_forward.start()
-			server.start_forward = True
+			server.th_retreat.start()
+			server.start_retreat = True
 			return ('', 204)
 		else:
 			print("retreat")
