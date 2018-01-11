@@ -75,7 +75,7 @@ class Server():
 		for pin in self.var_d:
 			GPIO.output(pin, GPIO.LOW)
 	
-	def cam_l:
+	def cam_l(self):
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(14, GPIO.OUT)
 		GPIO.setwarnings(False)
@@ -87,7 +87,7 @@ class Server():
 		time.sleep(duree)
 		GPIO.cleanup()
 	
-	def cam_r:
+	def cam_r(self):
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(14, GPIO.OUT)
 		GPIO.setwarnings(False)
