@@ -31,7 +31,7 @@ class Server():
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BCM)
 		#--Déclaration--#
-		self.var_pwma = [10,17,18,25]
+		self.v_pwma = [10,17,18,25]
 		self.var_av = [8,9,24,27]
 		self.var_ar = [7,11,22,23]
 		self.var_g = [9,24]
@@ -40,7 +40,7 @@ class Server():
 		self.start_retreat = False
 		self.start_right = False
 		self.start_left = False
-		self.th_forward = Forward(Server.puiss)
+		self.th_forward = Forward(Server.puiss, Server.v_pwma)
 		self.th_retreat = Retreat(Server.puiss)
 		self.th_right = Right(Server.puiss)
 		self.th_left = Left(Server.puiss)
@@ -55,7 +55,7 @@ class Server():
 	#--Configuration des GPIO en sorites numériques--Activation de la lecture bcm--#
 	#--Initialisation--#
 	def run(self):
-		for pin in self.var_pwma:
+		for pin in self.v_pwma:
 			GPIO.setup(pin, GPIO.OUT)
 		for pin in self.var_av:
 			GPIO.setup(pin, GPIO.OUT)
@@ -189,7 +189,7 @@ def start():
 			server.start_forward = True
 			return ('', 204)
 	else:
-		server.th_forward = Forward(server.puiss)
+		server.th_forward = Forward(server.puiss, server.v_pwma)
 		resultat = server.th_sonsor_ar.result()
 		if resultat <=20:
 			print ("Y a un obstacle")
@@ -417,7 +417,7 @@ def accelerer():
 		if server.start_forward:
 			print("acceleration")
 			server.th_forward.stop()
-			server.th_forward = Forward(server.puiss)
+			server.th_forward = Forward(server.puiss, server.v_pwma)
 			server.th_forward.start()
 			return ('', 204)
 		elif server.start_retreat:
