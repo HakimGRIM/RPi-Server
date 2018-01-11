@@ -84,7 +84,7 @@ class Server():
 		pwm.start(20)
 		
 		pwm.ChangeDutyCycle(5)
-		time.sleep(duree)
+		time.sleep(2)
 		GPIO.cleanup()
 	
 	def cam_r(self):
@@ -96,7 +96,7 @@ class Server():
 		pwm.start(20)
 		
 		pwm.ChangeDutyCycle(10)
-		time.sleep(duree)
+		time.sleep(2)
 		GPIO.cleanup()
 
 ##--Fin de la définition de la classe Server()--##
