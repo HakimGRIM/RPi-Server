@@ -74,6 +74,30 @@ class Server():
 			GPIO.output(pin, GPIO.LOW)
 		for pin in self.var_d:
 			GPIO.output(pin, GPIO.LOW)
+	
+	def cam_l:
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(14, GPIO.OUT)
+		GPIO.setwarnings(False)
+
+		pwm=GPIO.PWM(14,50)
+		pwm.start(20)
+		
+		pwm.ChangeDutyCycle(5)
+		time.sleep(duree)
+		GPIO.cleanup()
+	
+	def cam_r:
+		GPIO.setmode(GPIO.BCM)
+		GPIO.setup(14, GPIO.OUT)
+		GPIO.setwarnings(False)
+
+		pwm=GPIO.PWM(14,50)
+		pwm.start(20)
+		
+		pwm.ChangeDutyCycle(10)
+		time.sleep(duree)
+		GPIO.cleanup()
 
 ##--Fin de la définition de la classe Server()--##
 
@@ -431,6 +455,17 @@ def decelerer():
 	else :
 		print("Puissance Min")
 		return ('', 204)
+@app.route("/cam_left")
+def cam_left():
+	print("Tourner la caméra a gauche")
+	server.cam_l()
+	return ('', 204)
+
+@app.route("/cam_right")
+def cam_right():
+	print("Tourner la caméra a droite")
+	server.cam_r()
+	return ('', 204)
 
 if __name__ == "__main__":
 	app.run(host='192.168.0.12', port=5000)
