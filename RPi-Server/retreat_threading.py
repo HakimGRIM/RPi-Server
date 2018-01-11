@@ -7,7 +7,7 @@ import RPi.GPIO as GPIO
 
 class Retreat(Thread):
 
-    def __init__(self, puiss):
+    def __init__(self, puiss, v_pwma):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
@@ -15,7 +15,7 @@ class Retreat(Thread):
         self._puiss = puiss
         self._start = True
         self._puiss = puiss
-        self.var_pwma = [10,17,18,25]
+        self.var_pwma = v_pwma
         self.var_av = [8,9,24,27]
         self.var_ar = [7,11,22,23]
         self.var_g = [9,24]

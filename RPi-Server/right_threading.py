@@ -7,14 +7,14 @@ import RPi.GPIO as GPIO
 
 class Right(Thread):
 
-    def __init__(self, puiss):
+    def __init__(self, puiss, v_pwma):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BCM)
         ''' Constructor. '''
         Thread.__init__(self)
         self._puiss = puiss
         self._start = True
-        self.var_pwma = [10,17,18,25]
+        self.var_pwma = v_pwma
         self.var_g = [9,24]
         self.var_d = [8,27]
         for pin in self.var_pwma:

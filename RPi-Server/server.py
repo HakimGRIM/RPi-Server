@@ -41,9 +41,9 @@ class Server():
 		self.start_right = False
 		self.start_left = False
 		self.th_forward = Forward(Server.puiss, Server.v_pwma)
-		self.th_retreat = Retreat(Server.puiss)
-		self.th_right = Right(Server.puiss)
-		self.th_left = Left(Server.puiss)
+		self.th_retreat = Retreat(Server.puiss, Server.v_pwma)
+		self.th_right = Right(Server.puiss, server.v_pwma)
+		self.th_left = Left(Server.puiss, server.v_pwma)
 		self.th_sonsor_ar = Avant()
 		self.th_sonsor_av = Arriere()
 		self.if_init_foraward = True
@@ -261,7 +261,7 @@ def retreat():
 			return ('', 204)
 	else :
 		resultat = server.th_sonsor_av.result()
-		server.th_retreat = Retreat(server.puiss)
+		server.th_retreat = Retreat(server.puiss, server.v_pwma)
 		if resultat <=20:
 			print ("Y a un obstacle")
 			print ("Distance", resultat, "cm")
@@ -324,7 +324,7 @@ def right():
 			server.start_right = True
 			return ('', 204)
 	else :
-		server.th_right = Right(server.puiss)
+		server.th_right = Right(server.puiss, server.v_pwma)
 		if server.th_forward.result():
 			print("right")
 			server.th_forward.stop()
@@ -382,7 +382,7 @@ def left():
 			server.start_left = True
 			return ('', 204)
 	else :
-		server.th_left = Left(server.puiss)
+		server.th_left = Left(server.puiss, server.v_pwma)
 		if server.th_forward.result():
 			print("left")
 			server.th_forward.stop()
@@ -423,7 +423,7 @@ def accelerer():
 		elif server.start_retreat:
 			print("acceleration")
 			server.th_retreat.stop()
-			server.th_retreat = Retreat(server.puiss)
+			server.th_retreat = Retreat(server.puiss, server.v_pwma)
 			server.th_retreat.start()
 			return ('', 204)
 		else:
@@ -440,13 +440,13 @@ def decelerer():
 		if server.th_forward.result():
 			print("deceleration")
 			server.th_forward.stop()
-			server.th_forward = Forward(server.puiss)
+			server.th_forward = Forward(server.puiss, server.v_pwma)
 			server.th_forward.start()
 			return ('', 204)
 		elif server.th_retreat.result():
 			print("deceleration")
 			server.th_retreat.stop()
-			server.th_retreat = Retreat(server.puiss)
+			server.th_retreat = Retreat(server.puiss, server.v_pwma)
 			server.th_retreat.start()
 			return ('', 204)
 		else:
@@ -468,4 +468,4 @@ def cam_right():
 	return ('', 204)
 
 if __name__ == "__main__":
-	app.run(host='192.168.0.12', port=5000)
+	app.run(host='10.0.1.1', port=5000)
